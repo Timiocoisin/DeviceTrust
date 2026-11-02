@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>设备授权管理平台 · 登录</title><link rel="icon" type="image/svg+xml" href="/static/assets/logo-primary.svg?v=2"><link rel="stylesheet" href="/static/css/v3-common.css"><link rel="stylesheet" href="/static/css/v3-auth.css?v=ui-3.7"></head><body><main class="auth"><section class="auth__brand" aria-label="设备授权管理平台介绍"><div class="auth__mark"><img src="/static/assets/logo-primary.svg?v=2" alt=""><span>设备授权管理平台</span></div><div class="auth__intro"><h1>统一管理设备身份，<br>规范授权与接入。</h1><p>集中管理设备准入、授权状态与访问记录。</p></div><img class="auth__art" src="/static/assets/authorization-art.svg?v=2" alt="设备授权档案：CPU 身份、硬件指纹与授权状态"><div class="auth__features"><div><strong>身份核验</strong><span>CPU 与硬件指纹</span></div><div><strong>准入控制</strong><span>白名单与设备状态</span></div><div><strong>授权审计</strong><span>成功与失败记录</span></div></div></section><section class="auth__panel"><div class="auth__card">        <div class="auth__stack" id="loginAccessRegister" data-mode="login">
+          <div class="auth__access" data-panel="login">
+            <h2 class="auth__card-title">登录管理控制台</h2>
+            <p class="auth__card-sub">使用已注册邮箱访问设备授权管理平台</p>
+
+            <div class="auth__alert auth__alert--error hidden" id="loginAlert" role="alert" aria-live="polite"></div>
+
+            <form action="{{ url_for('login') }}" method="POST" class="auth__form" id="loginForm">
+              <div class="field">
+                <label for="email">邮箱</label>
+                <div class="field__control">
+                  <input type="email" id="email" name="Email" required autocomplete="username" placeholder="name@company.com">
+                  <svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#mail"/></svg>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="field__label-row">
+                  <label for="password">密码</label>
+                  
+                </div>
+                <div class="field__control">
+                  <input type="password" id="password" name="Password" required autocomplete="current-password" placeholder="请输入密码">
+                  <button type="button" class="field__toggle" id="loginPassword" aria-label="显示或隐藏密码">
+                    <svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#eye-off"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="recovery-row"><button type="button" class="field__link" id="loginButtonForgot">忘记密码？</button></div><button type="submit" class="auth__submit">登录</button>
+            </form>
+
+            <p class="auth__switch">
+              还没有账户？
+              <button type="button" id="loginButtonRegister">创建账户</button>
+            </p>
+          </div>
+
+          <div class="auth__register" data-panel="register">
+            <h2 class="auth__card-title">创建账户</h2>
+            <p class="auth__card-sub">填写账户信息，开始管理设备授权</p>
+
+            <div class="auth__alert auth__alert--error hidden" id="registerAlert" role="alert" aria-live="polite"></div>
+
+            <form action="{{ url_for('register') }}" method="POST" class="auth__form" id="registerForm">
+              <div class="field">
+                <label for="names">姓名</label>
+                <div class="field__control">
+                  <input type="text" id="names" name="Name" required autocomplete="name" placeholder="您的姓名">
+                  <svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#user"/></svg>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="emailCreate">邮箱</label>
+                <div class="field__control">
+                  <input type="email" id="emailCreate" name="Email" required autocomplete="email" placeholder="name@company.com">
+                  <svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#mail"/></svg>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="passwordCreate">密码</label>
+                <div class="field__control">
+                  <input type="password" id="passwordCreate" name="Password" required autocomplete="new-password" placeholder="至少 8 位，含大小写、数字与符号">
+                  <button type="button" class="field__toggle" id="loginPasswordCreate" aria-label="显示或隐藏密码">
+                    <svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#eye-off"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="password-strength"><div class="strength-bars"><b></b><b></b><b></b><b></b></div><p>至少 8 位，包含大小写字母、数字与特殊符号</p></div><button type="submit" class="auth__submit" id="register_button">创建账户</button>
+            </form>
+
+            <p class="auth__switch">
+              已有账户？
+              <button type="button" id="loginButtonAccess">返回登录</button>
+            </p>
+          </div>
+
+          <div class="auth__forgot" data-panel="forgot">
+            <h2 class="auth__card-title">重置密码</h2>
+            <p class="auth__card-sub">输入注册邮箱，为账户设置新的密码</p>
+
+            <div class="auth__alert auth__alert--error hidden" id="forgotAlert" role="alert" aria-live="polite"></div>
+
+            <form action="{{ url_for('reset_password') }}" method="POST" class="auth__form" id="forgotForm">
+              <div class="field">
+                <label for="emailForgot">注册邮箱</label>
+                <div class="field__control">
+                  <input type="email" id="emailForgot" name="Email" required autocomplete="email" placeholder="name@company.com">
+                  <svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#mail"/></svg>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="passwordForgot">新密码</label>
+                <div class="field__control">
+                  <input type="password" id="passwordForgot" name="Password" required autocomplete="new-password" placeholder="至少 8 位，含大小写、数字与符号">
+                  <button type="button" class="field__toggle" id="forgotPasswordToggle" aria-label="显示或隐藏密码">
+                    <svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#eye-off"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="passwordForgotConfirm">确认新密码</label>
+                <div class="field__control">
+                  <input type="password" id="passwordForgotConfirm" name="ConfirmPassword" required autocomplete="new-password" placeholder="再次输入新密码">
+                  <button type="button" class="field__toggle" id="forgotPasswordConfirmToggle" aria-label="显示或隐藏密码">
+                    <svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#eye-off"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="password-strength"><div class="strength-bars"><b></b><b></b><b></b><b></b></div><p>至少 8 位，包含大小写字母、数字与特殊符号</p></div><button type="submit" class="auth__submit">重置密码</button>
+            </form>
+
+            <p class="auth__switch">
+              想起密码了？
+              <button type="button" id="forgotButtonAccess">返回登录</button>
+            </p>
+          </div>
+        </div>
+
+</div><p class="auth__trust"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#authorize"/></svg>仅供授权人员使用 · <a href="/docs" target="_blank" rel="noopener">设备授权接口文档</a></p></section></main><script id="authFlashData" type="application/json">{{ get_flashed_messages(with_categories=true)|tojson }}</script><script src="/static/js/main.js"></script></body></html>
+
+

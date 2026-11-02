@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><defs><linearGradient id="tile" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6E89FF"/><stop offset=".5" stop-color="#4768EF"/><stop offset="1" stop-color="#304FCB"/></linearGradient><linearGradient id="ribbon" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#D8E3FF"/></linearGradient></defs><rect x="1" y="1" width="62" height="62" rx="18" fill="url(#tile)"/>
+ <rect x="1.5" y="1.5" width="61" height="61" rx="17.5" fill="none" stroke="#FFFFFF" stroke-opacity=".18"/>
+ <path d="M32 11 49 21v18l-8 5V26l-9-5-9 5v11l9 5v7L14 39V21Z" fill="url(#ribbon)"/>
+ <path d="m32 29 8-5 9 5v10l-17 10-9-5 17-10-8-5Z" fill="#BBCBFF"/>
+ <path d="m32 29 8-5 9 5-9 5Z" fill="url(#ribbon)"/>
+</svg>

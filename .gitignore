@@ -1,0 +1,27 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.idea/
+.finesse/
+auth_code.bin
+
+# Local configuration, runtime data and design/review artifacts
+.env.*
+!.env.example
+venv/
+*.bin
+*.log
+*.sql
+*.sqlite*
+.vscode/
+.DS_Store
+Thumbs.db
+implementation*/
+design*/
+redesign*/
+.release/
+*.zip
+*.gif
+static/img/
+static/assets/docs/flow-atlas.png

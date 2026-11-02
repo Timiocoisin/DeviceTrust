@@ -1,0 +1,320 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>设备授权接口文档 · 设备授权管理平台</title><link rel="icon" href="/static/assets/logo-primary.svg?v=2"><link rel="stylesheet" href="/static/css/v3-common.css?v=ui-3.8"><link rel="stylesheet" href="/static/css/docs-portal.css?v=portal-3"></head><body><div class="docs-page" data-authorize-port="{{ authorize_port }}" data-auth-hours="{{ auth_code_hours }}"><header class="docs-top"><button type="button" class="mobile-menu" id="docsMenu" aria-label="打开文档目录" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#list"/></svg></button><a class="docs-brand" href="{{ url_for('index') }}"><img src="/static/assets/logo-primary.svg?v=2" alt=""><strong>设备授权管理平台</strong></a><span class="docs-brand-section">开发者文档</span><button class="docs-search-trigger" id="openSearch" type="button"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#search"/></svg><span>搜索文档…</span><kbd>Ctrl</kbd><kbd>K</kbd></button><div class="docs-top__actions"><span class="api-version">API v1</span><a href="{{ url_for('message') if session.get('email') else url_for('index') }}">返回控制台 ↗</a></div></header><div class="docs-shell"><aside class="docs-toc" aria-label="文档目录"><nav id="tocNav"><p class="nav-group">开始使用</p><a href="#overview" class=""><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#records"/></svg><span>概述</span></a><a href="#flow" class=""><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#tree"/></svg><span>授权流程</span></a><a href="#crypto" class=""><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#lock"/></svg><span>加解密约定</span></a><p class="nav-group">接口参考</p><a href="#authorize" class="is-active"><span class=method-mini>POST</span><span>获取授权码</span></a><a href="#verify" class=""><span class=method-mini>POST</span><span>校验授权码</span></a><a href="#tenant" class=""><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#workspace"/></svg><span>业务线 tenant</span></a><a href="#errors" class=""><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#warning"/></svg><span>错误码</span></a><a href="#examples" class=""><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#hardware"/></svg><span>调用示例</span></a></nav><a class="download-card" href="#examples"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#records"/></svg><span><strong>request_auth.py</strong><small>查看本地测试脚本用法</small></span></a></aside><main class="docs-main"><section id="overview" class="docs-hero"><div class="docs-breadcrumb"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#overview"/></svg><span>接口参考</span><span>/</span><strong>获取授权码</strong></div><h1>设备授权接口文档</h1><p>安全接入设备身份，完成授权签发与校验。</p></section><section id="flow" class="flow-stage" aria-label="授权流程演示"><div class="flow-visual"><ol class="flow-steps" id="flowSteps"><li class="flow-step is-active" data-step="0"><button type="button" class="flow-step__node" aria-label="第 1 步：设备上报" aria-current=step><span class="flow-art flow-art--0" aria-hidden="true"><svg class="flow-native" viewBox="0 0 160 138" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+ <linearGradient id="flow-native-0-face" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#52B5FF"/><stop offset="1" stop-color="#2260CF"/></linearGradient>
+ <linearGradient id="flow-native-0-top" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F8FCFF"/><stop offset="1" stop-color="#C1DEFF"/></linearGradient>
+ <linearGradient id="flow-native-0-glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#C9F3FF" stop-opacity=".7"/><stop offset="1" stop-color="#A9D3FF" stop-opacity=".12"/></linearGradient>
+ <linearGradient id="flow-native-0-paper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#E7F2FF"/></linearGradient>
+ <filter id="flow-native-0-shadow" x="-50%" y="-50%" width="200%" height="220%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#2D73BC" flood-opacity=".16"/></filter>
+ </defs><ellipse cx="80" cy="112" rx="49" ry="7" fill="#C8E2FA" opacity=".32"/>
+ <g filter="url(#flow-native-0-shadow)"><path d="m21 96 59-31 59 31v7l-59 31-59-31Z" transform="translate(0 -7)" fill="#C5DDF7"/><path d="m21 89 59-31 59 31-59 31Z" fill="url(#flow-native-0-top)" stroke="#EDF7FF"/><path d="m36 89 44-23 44 23-44 23Z" fill="#E9F5FF" stroke="#BEDCFA" stroke-width=".8"/></g><path d="M37.416666666666664 46.166666666666664l-6 -3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M44.25 42.5l-6 -3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M51.083333333333336 38.83333333333333l-6 -3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M57.91666666666667 35.166666666666664l-6 -3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M64.75 31.5l-6 -3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M71.58333333333333 27.833333333333336l-6 -3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M88.41666666666667 27.833333333333332l6 -3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M95.25 31.5l6 -3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M102.08333333333334 35.16666666666667l6 -3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M108.91666666666667 38.833333333333336l6 -3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M115.75 42.5l6 -3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M122.58333333333333 46.166666666666664l6 -3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M37.416666666666664 66.83333333333333l-6 3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M44.25 70.5l-6 3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M51.083333333333336 74.16666666666667l-6 3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M57.91666666666667 77.83333333333333l-6 3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M64.75 81.5l-6 3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M71.58333333333333 85.16666666666666l-6 3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M88.41666666666667 85.16666666666667l6 3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M95.25 81.5l6 3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M102.08333333333334 77.83333333333333l6 3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M108.91666666666667 74.16666666666667l6 3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M115.75 70.5l6 3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><path d="M122.58333333333333 66.83333333333334l6 3v4" stroke="#8EBDE8" stroke-width="3.8" stroke-linecap="round"/><g class="chip-body"><path d="m32 48 48-26 48 26v16L80 90 32 64Z" fill="#3468A9"/><path d="m32 48 48-26 48 26-48 26Z" fill="url(#flow-native-0-top)" stroke="#AED4FF"/><path d="m41 48 39-21 39 21v7L80 76 41 55Z" fill="#1465CA"/><path d="m41 48 39-21 39 21-39 21Z" fill="url(#flow-native-0-face)" stroke="#7CCFFF"/><path d="m51 48 29-16 29 16-29 16Z" stroke="#BDEAFF" stroke-opacity=".7"/><text x="80" y="51" transform="rotate(-29 80 48)" text-anchor="middle" fill="white" font-family="Consolas,monospace" font-size="14" font-weight="600">CPU</text><path class="chip-signal" d="m25 92 19-10m36 24v-12m36-12 19 10" stroke="#35CFFF" stroke-width="2" stroke-linecap="round"/><circle class="chip-led" cx="80" cy="91" r="2.5" fill="#4CE4FF"/><circle class="chip-led delay-one" cx="54" cy="77" r="2" fill="#65D9FF"/><circle class="chip-led delay-two" cx="106" cy="77" r="2" fill="#65D9FF"/></g></svg></span><span class="flow-caption"><b>01</b><strong>设备上报</strong></span><small>提交 CPU 标识与硬件信息</small></button></li><li class="flow-step " data-step="1"><button type="button" class="flow-step__node" aria-label="第 2 步：加密传输" ><span class="flow-art flow-art--1" aria-hidden="true"><svg class="flow-native" viewBox="0 0 160 138" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+ <linearGradient id="flow-native-1-face" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#52B5FF"/><stop offset="1" stop-color="#2260CF"/></linearGradient>
+ <linearGradient id="flow-native-1-top" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F8FCFF"/><stop offset="1" stop-color="#C1DEFF"/></linearGradient>
+ <linearGradient id="flow-native-1-glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#C9F3FF" stop-opacity=".7"/><stop offset="1" stop-color="#A9D3FF" stop-opacity=".12"/></linearGradient>
+ <linearGradient id="flow-native-1-paper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#E7F2FF"/></linearGradient>
+ <filter id="flow-native-1-shadow" x="-50%" y="-50%" width="200%" height="220%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#2D73BC" flood-opacity=".16"/></filter>
+ </defs><ellipse cx="80" cy="112" rx="49" ry="7" fill="#C8E2FA" opacity=".32"/>
+ <g filter="url(#flow-native-1-shadow)"><path d="m21 96 59-31 59 31v7l-59 31-59-31Z" transform="translate(0 -7)" fill="#C5DDF7"/><path d="m21 89 59-31 59 31-59 31Z" fill="url(#flow-native-1-top)" stroke="#EDF7FF"/><path d="m36 89 44-23 44 23-44 23Z" fill="#E9F5FF" stroke="#BEDCFA" stroke-width=".8"/></g><g class="crypto-shell"><path d="m44 29 36-19 36 19v65l-36 19-36-19Z" fill="url(#flow-native-1-glass)" stroke="#AFD9FA"/><path d="m44 29 36 19 36-19-36-19Z" fill="#DDEFFF" fill-opacity=".6" stroke="#DDF5FF"/><path d="M80 48v65M44 29v65l36 19 36-19V29" stroke="#F0FCFF" stroke-width="1.5"/><path d="m52 38 28 15 28-15M52 85l28 15 28-15" stroke="#C8EBFF" stroke-dasharray="3 4"/><path class="crypto-scan" d="m45 50 35 18 35-18v8L80 76 45 58Z" fill="#52D8FF" fill-opacity=".24" stroke="#7BE9FF" stroke-width=".7"/><g class="crypto-lock"><rect x="64" y="55" width="32" height="31" rx="8" fill="url(#flow-native-1-face)" stroke="#A7E3FF"/><path class="lock-shackle" d="M71 56v-8a9 9 0 0 1 18 0v8" stroke="#2E83DF" stroke-width="5" stroke-linecap="round"/><circle cx="80" cy="68" r="3" fill="#D9F9FF"/><path d="M80 71v6" stroke="#D9F9FF" stroke-width="3" stroke-linecap="round"/></g><circle class="crypto-dot" cx="51" cy="43" r="2" fill="#73DFFF"/><circle class="crypto-dot delay-one" cx="109" cy="81" r="2" fill="#73DFFF"/></g></svg></span><span class="flow-caption"><b>02</b><strong>加密传输</strong></span><small>AES 加密并 Base64 编码</small></button></li><li class="flow-step " data-step="2"><button type="button" class="flow-step__node" aria-label="第 3 步：策略校验" ><span class="flow-art flow-art--2" aria-hidden="true"><svg class="flow-native" viewBox="0 0 160 138" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+ <linearGradient id="flow-native-2-face" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#52B5FF"/><stop offset="1" stop-color="#2260CF"/></linearGradient>
+ <linearGradient id="flow-native-2-top" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F8FCFF"/><stop offset="1" stop-color="#C1DEFF"/></linearGradient>
+ <linearGradient id="flow-native-2-glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#C9F3FF" stop-opacity=".7"/><stop offset="1" stop-color="#A9D3FF" stop-opacity=".12"/></linearGradient>
+ <linearGradient id="flow-native-2-paper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#E7F2FF"/></linearGradient>
+ <filter id="flow-native-2-shadow" x="-50%" y="-50%" width="200%" height="220%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#2D73BC" flood-opacity=".16"/></filter>
+ </defs><ellipse cx="80" cy="112" rx="49" ry="7" fill="#C8E2FA" opacity=".32"/>
+ <g filter="url(#flow-native-2-shadow)"><path d="m21 96 59-31 59 31v7l-59 31-59-31Z" transform="translate(0 -7)" fill="#C5DDF7"/><path d="m21 89 59-31 59 31-59 31Z" fill="url(#flow-native-2-top)" stroke="#EDF7FF"/><path d="m36 89 44-23 44 23-44 23Z" fill="#E9F5FF" stroke="#BEDCFA" stroke-width=".8"/></g><g class="server-bay server-bay-0"><path d="M63 22h48l13 7v19l-13 7H63Z" fill="#285795"/><rect x="55" y="27" width="58" height="23" rx="4" fill="url(#flow-native-2-face)" stroke="#89C4FD" stroke-width=".7"/><path d="M64 35h22" stroke="#17457F" stroke-width="3" stroke-linecap="round"/><circle class="server-led delay-0" cx="103" cy="38" r="2" fill="#63E8E9"/></g><g class="server-bay server-bay-1"><path d="M63 46h48l13 7v19l-13 7H63Z" fill="#285795"/><rect x="55" y="51" width="58" height="23" rx="4" fill="url(#flow-native-2-face)" stroke="#89C4FD" stroke-width=".7"/><path d="M64 59h22" stroke="#17457F" stroke-width="3" stroke-linecap="round"/><circle class="server-led delay-1" cx="103" cy="62" r="2" fill="#63E8E9"/></g><g class="server-bay server-bay-2"><path d="M63 70h48l13 7v19l-13 7H63Z" fill="#285795"/><rect x="55" y="75" width="58" height="23" rx="4" fill="url(#flow-native-2-face)" stroke="#89C4FD" stroke-width=".7"/><path d="M64 83h22" stroke="#17457F" stroke-width="3" stroke-linecap="round"/><circle class="server-led delay-2" cx="103" cy="86" r="2" fill="#63E8E9"/></g><path d="m55 27 33-18 36 20-11 5Z" fill="url(#flow-native-2-top)" stroke="#DAF1FF"/><g class="policy-shield"><path d="m35 60 23-9 23 9v21c0 16-23 28-23 28S35 97 35 81Z" fill="#D2F1FF" stroke="#8FCEFA" stroke-width="1.5"/><path d="m41 65 17-7 17 7v15c0 12-17 22-17 22S41 92 41 80Z" fill="#2E99EA"/><path class="shield-check" d="m49 79 7 7 13-15" stroke="#E9FFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path class="shield-ring" d="m35 60 23-9 23 9v21c0 16-23 28-23 28S35 97 35 81Z" stroke="#52D9FF" stroke-width="2"/></g></svg></span><span class="flow-caption"><b>03</b><strong>策略校验</strong></span><small>白名单、设备状态与限流</small></button></li><li class="flow-step " data-step="3"><button type="button" class="flow-step__node" aria-label="第 4 步：返回授权码" ><span class="flow-art flow-art--3" aria-hidden="true"><svg class="flow-native" viewBox="0 0 160 138" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+ <linearGradient id="flow-native-3-face" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#52B5FF"/><stop offset="1" stop-color="#2260CF"/></linearGradient>
+ <linearGradient id="flow-native-3-top" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F8FCFF"/><stop offset="1" stop-color="#C1DEFF"/></linearGradient>
+ <linearGradient id="flow-native-3-glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#C9F3FF" stop-opacity=".7"/><stop offset="1" stop-color="#A9D3FF" stop-opacity=".12"/></linearGradient>
+ <linearGradient id="flow-native-3-paper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#E7F2FF"/></linearGradient>
+ <filter id="flow-native-3-shadow" x="-50%" y="-50%" width="200%" height="220%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#2D73BC" flood-opacity=".16"/></filter>
+ </defs><ellipse cx="80" cy="112" rx="49" ry="7" fill="#C8E2FA" opacity=".32"/>
+ <g filter="url(#flow-native-3-shadow)"><path d="m21 96 59-31 59 31v7l-59 31-59-31Z" transform="translate(0 -7)" fill="#C5DDF7"/><path d="m21 89 59-31 59 31-59 31Z" fill="url(#flow-native-3-top)" stroke="#EDF7FF"/><path d="m36 89 44-23 44 23-44 23Z" fill="#E9F5FF" stroke="#BEDCFA" stroke-width=".8"/></g><g class="credential-pages"><rect x="63" y="24" width="48" height="69" rx="8" transform="rotate(-8 87 58)" fill="#83BDF5"/><rect x="54" y="29" width="48" height="69" rx="8" transform="rotate(-5 78 63)" fill="#C1E1FF" stroke="#E5F5FF"/><g transform="rotate(-5 72 67)"><rect x="46" y="35" width="49" height="65" rx="8" fill="url(#flow-native-3-paper)" stroke="#B3D9F9" stroke-width="1.2"/><path d="M57 49h27M57 58h22M57 67h18" stroke="#6AADEB" stroke-width="3" stroke-linecap="round"/><path class="credential-check" d="m59 83 5 5 12-13" stroke="#269AE9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g></g><g class="credential-key"><circle cx="105" cy="83" r="9" fill="#FFF1BB" stroke="#E9B34D" stroke-width="2.5"/><circle cx="105" cy="83" r="3" stroke="#F0BD54" stroke-width="2"/><path d="M105 92v18h6v-6h-6" stroke="#E9B34D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g></svg></span><span class="flow-caption"><b>04</b><strong>返回授权码</strong></span><small>签发授权码，完成授权</small></button></li></ol><div class="flow-play"><button type="button" id="playFlow"><span class="play-disc">▶</span><span id="playFlowLabel">播放授权流程</span></button><div class="flow-progress" aria-hidden="true"><i class="is-active"></i><i></i><i></i><i></i></div><span class="flow-counter" id="flowCounter">01 / 04</span></div></div><p class="flow-detail" id="flowDetail" aria-live="polite">设备采集 CPU、主板、磁盘、内存与 IP，作为设备身份核验的输入。</p></section><section id="authorize" class="docs-card endpoint-section"><header class="docs-card__head"><h2>获取授权码</h2><p>提交 CPU 标识与加密硬件信息，获取设备授权码。</p></header><div class="endpoint-header"><div class="docs-endpoint"><span class="method">POST</span><code>/authorize</code><button type="button" id="copyEndpoint" aria-label="复制接口地址"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#copy"/></svg></button></div><span class="content-type">Content-Type: application/json</span></div><h3 id="request-params">请求参数</h3><div class="table-wrap"><table class="docs-table"><thead><tr><th>参数</th><th>类型</th><th>必填</th><th>说明</th></tr></thead><tbody><tr><td><code>cpu_id</code></td><td>string</td><td><span class="param-required">必填</span></td><td>CPU 唯一标识，需与加密信息一致</td></tr><tr><td><code>encrypted_info</code></td><td>string</td><td><span class="param-required">必填</span></td><td>AES 加密后的硬件信息（Base64）</td></tr><tr><td><code>tenant</code></td><td>string</td><td><span class="param-optional">可选</span></td><td>默认铝水；元一填写 <code>yuanyi</code></td></tr></tbody></table></div><p class="docs-callout"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#info"/></svg><span>业务线隔离：不传 tenant 默认铝水；元一设备传 <code>yuanyi</code>。</span></p><h3 id="policy-checks">授权校验流程</h3><ol class="checks-line"><li><b>1</b><div><strong>白名单</strong><small>检查设备是否允许接入</small></div></li><li><b>2</b><div><strong>设备状态</strong><small>校验指纹与封禁状态</small></div></li><li><b>3</b><div><strong>频率限制</strong><small>执行限流与单设备日限</small></div></li><li><b>4</b><div><strong>授权签发</strong><small>通过后签发授权码</small></div></li></ol><h3 id="response-fields">响应字段</h3><div class="table-wrap"><table class="docs-table"><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>auth_code</code></td><td>string</td><td>签发的授权码，设备应持久化保存</td></tr><tr><td><code>device_fingerprint</code></td><td>string</td><td>硬件指纹：SHA256 前 16 位</td></tr><tr><td><code>hardware_changed</code></td><td>boolean</td><td>同 CPU 下是否出现新的硬件指纹</td></tr><tr><td><code>is_new_device</code></td><td>boolean</td><td>该指纹是否首次出现</td></tr><tr><td><code>tenant</code></td><td>string</td><td>实际写入的业务线</td></tr></tbody></table></div><a class="next-endpoint" href="#verify"><span><b class="method-mini">POST</b><code>/verify_auth_code</code></span><span>下一节：校验授权码 →</span></a><details class="live-test"><summary>在线调试 <span>手动填写参数后才会发送真实请求</span></summary><div class="try-panel" id="try-authorize">
+            <div class="try-panel__head">
+              <strong>Try it</strong>
+              <span>左侧改参数，右侧实时生成请求；发送后响应错开入场</span>
+            </div>
+            <div class="try-grid">
+              <form class="try-form" id="authorizeForm" autocomplete="off">
+                <label>
+                  <span>cpu_id</span>
+                  <input name="cpu_id" value="BFEBFBFF000B0671" required>
+                </label>
+                <label>
+                  <span>encrypted_info</span>
+                  <textarea name="encrypted_info" rows="4" placeholder="粘贴 AES Base64 密文" required></textarea>
+                </label>
+                <label>
+                  <span>tenant</span>
+                  <select name="tenant">
+                    <option value="">默认（铝水 lvshui）</option>
+                    <option value="lvshui">lvshui · 铝水</option>
+                    <option value="yuanyi">yuanyi · 元一</option>
+                  </select>
+                </label>
+                <div class="try-form__actions">
+                  <button type="submit" class="btn-sm">发送请求</button>
+                  <button type="button" class="btn-sm btn-outline" data-preview="authorize">预览成功样例</button>
+                </div>
+              </form>
+              <div class="try-stage">
+                <div class="code-tabs" data-tabs="authorize-try">
+                  <div class="code-tabs__list" role="tablist">
+                    <button type="button" role="tab" aria-selected="true" data-pane="req">Request</button>
+                    <button type="button" role="tab" aria-selected="false" data-pane="res">Response</button>
+                  </div>
+                  <div class="code-tabs__pane is-active" data-pane="req" data-copy>
+                    <div class="code-frame__bar"><span>POST /authorize</span><button type="button" class="copy-btn">复制</button></div>
+                    <pre class="docs-code" id="authorizeReqPreview" tabindex="0"><code>{}</code></pre>
+                  </div>
+                  <div class="code-tabs__pane" data-pane="res" data-copy>
+                    <div class="code-frame__bar">
+                      <span id="authorizeResLabel">等待发送…</span>
+                      <button type="button" class="copy-btn">复制</button>
+                    </div>
+                    <pre class="docs-code docs-code--response" id="authorizeResPreview" tabindex="0"><code>// 点击「发送请求」或「预览成功样例」</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          </details></section><section class="docs-card" id="verify">
+          <div class="docs-card__head">
+            <h2>校验授权码</h2>
+            <div class="docs-endpoint">
+              <span class="method">POST</span>
+              <span class="endpoint-url">http://&lt;host&gt;:{{ authorize_port }}/verify_auth_code</span>
+            </div>
+            <p>无需登录。用于确认授权码是否有效、是否在有效期内。</p>
+          </div>
+
+          <div class="try-panel">
+            <div class="try-panel__head">
+              <strong>Try it</strong>
+              <span>粘贴授权码，即时预览请求与响应</span>
+            </div>
+            <div class="try-grid">
+              <form class="try-form" id="verifyForm" autocomplete="off">
+                <label>
+                  <span>auth_code</span>
+                  <textarea name="auth_code" rows="4" placeholder="粘贴 DES Base64 授权码" required></textarea>
+                </label>
+                <div class="try-form__actions">
+                  <button type="submit" class="btn-sm">发送请求</button>
+                  <button type="button" class="btn-sm btn-outline" data-preview="verify">预览成功样例</button>
+                </div>
+              </form>
+              <div class="try-stage">
+                <div class="code-tabs" data-tabs="verify-try">
+                  <div class="code-tabs__list" role="tablist">
+                    <button type="button" role="tab" aria-selected="true" data-pane="req">Request</button>
+                    <button type="button" role="tab" aria-selected="false" data-pane="res">Response</button>
+                  </div>
+                  <div class="code-tabs__pane is-active" data-pane="req" data-copy>
+                    <div class="code-frame__bar"><span>POST /verify_auth_code</span><button type="button" class="copy-btn">复制</button></div>
+                    <pre class="docs-code" id="verifyReqPreview" tabindex="0"><code>{}</code></pre>
+                  </div>
+                  <div class="code-tabs__pane" data-pane="res" data-copy>
+                    <div class="code-frame__bar">
+                      <span id="verifyResLabel">等待发送…</span>
+                      <button type="button" class="copy-btn">复制</button>
+                    </div>
+                    <pre class="docs-code docs-code--response" id="verifyResPreview" tabindex="0"><code>// 点击「发送请求」或「预览成功样例」</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section><section class="docs-card" id="crypto">
+          <div class="docs-card__head">
+            <h2>加解密约定</h2>
+            <p>密钥与服务端 <code>.env</code> 一致（<code>AES_KEY</code> / <code>DES_KEY</code> / <code>DES_IV</code>），本文不展示明文密钥。</p>
+          </div>
+
+          <h3>上报硬件明文格式</h3>
+          <div class="code-frame" data-copy>
+            <div class="code-frame__bar"><span>plaintext</span><button type="button" class="copy-btn">复制</button></div>
+            <pre class="docs-code" tabindex="0"><code>cpu_id|motherboard_id|disk_id|memory_id|ip_address</code></pre>
+          </div>
+
+          <h3>加密算法</h3>
+          <table class="docs-table">
+            <thead>
+              <tr><th>用途</th><th>算法</th><th>说明</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>设备 → 服务端</td>
+                <td><code>AES-ECB</code> + Base64</td>
+                <td>加密硬件明文；用 <code>\0</code> 填充到 16 字节倍数</td>
+              </tr>
+              <tr>
+                <td>服务端 → 设备</td>
+                <td><code>DES-CBC</code> + Base64</td>
+                <td>生成授权码；填充到 8 字节倍数</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>授权码明文格式</h3>
+          <div class="code-frame" data-copy>
+            <div class="code-frame__bar"><span>auth payload</span><button type="button" class="copy-btn">复制</button></div>
+            <pre class="docs-code" tabindex="0"><code>cpu_id|motherboard_id|disk_id|memory_id|YYYY-MM-DD HH:MM:SS</code></pre>
+          </div>
+          <p class="docs-note">最后一段为签发时间。默认有效期 {{ auth_code_max_age_seconds }} 秒（{{ auth_code_hours }} 小时）；设为 0 表示不校验过期。</p>
+        </section><section class="docs-card" id="tenant">
+          <div class="docs-card__head">
+            <h2>业务线 tenant</h2>
+            <p>白名单、授权记录、设备指纹均按业务线隔离，不可混用。</p>
+          </div>
+          <table class="docs-table">
+            <thead>
+              <tr><th>编码</th><th>名称</th><th>设备侧要求</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>lvshui</code></td><td>铝水</td><td>可不传，服务端默认铝水，兼容现网</td></tr>
+              <tr><td><code>yuanyi</code></td><td>元一</td><td>请求体必须带 <code>"tenant":"yuanyi"</code></td></tr>
+            </tbody>
+          </table>
+        </section><section class="docs-card" id="errors">
+          <div class="docs-card__head">
+            <h2>常见错误</h2>
+            <p>当前策略：IP 限流 {{ rate_ip }}/{{ rate_window }}s · CPU 限流 {{ rate_cpu }}/{{ rate_window }}s · 单设备日限 {{ daily_limit }} 次。</p>
+          </div>
+          <table class="docs-table">
+            <thead>
+              <tr><th>HTTP</th><th>error 示例</th><th>含义</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>400</td><td>缺少必要的参数</td><td>未传 cpu_id 或 encrypted_info</td></tr>
+              <tr><td>400</td><td>CPU不在白名单</td><td>当前业务线未录入该 CPU</td></tr>
+              <tr><td>400</td><td>设备已禁用 / 授权已过期</td><td>白名单状态或到期时间不通过</td></tr>
+              <tr><td>400</td><td>授权验证失败</td><td>解密失败或密文损坏</td></tr>
+              <tr><td>400</td><td>CPU_ID与加密信息不匹配</td><td>明文 cpu_id 与密文内不一致</td></tr>
+              <tr><td>400</td><td>无效的业务线 tenant</td><td>tenant 不是 lvshui / yuanyi</td></tr>
+              <tr><td>403</td><td>设备已被封禁</td><td>该设备指纹被封禁</td></tr>
+              <tr><td>403</td><td>今日授权次数已达上限</td><td>超过单设备日限额（当前 {{ daily_limit }}）</td></tr>
+              <tr><td>429</td><td>IP / CPU 请求过于频繁</td><td>触发限流</td></tr>
+              <tr><td>500</td><td>服务器内部错误</td><td>服务端异常</td></tr>
+            </tbody>
+          </table>
+        </section><section class="docs-card" id="examples"><div class="script-usage"><h3>本地测试脚本</h3><p>在项目目录运行脚本，自动采集硬件并请求授权码；支持 --host、--port 覆盖服务地址。</p><div class="code-frame" data-copy><div class="code-frame__bar"><span>request_auth.py</span><button type="button" class="copy-btn">复制</button></div><pre class="docs-code"><code>python request_auth.py
+python request_auth.py --tenant yuanyi</code></pre></div></div>
+          <div class="docs-card__head">
+            <h2>调用示例</h2>
+            <p>选择语言后复制示例；示例请求中的密文需替换为设备实际生成的内容。</p>
+          </div>
+
+          <div class="example-block" data-example="authorize-lvshui">
+            <h3>获取授权码 · 铝水</h3>
+            <div class="code-tabs" data-tabs="ex-auth-lv">
+              <div class="code-tabs__list" role="tablist">
+                <button type="button" role="tab" aria-selected="true" data-pane="curl">cURL</button>
+                <button type="button" role="tab" aria-selected="false" data-pane="python">Python</button>
+                <button type="button" role="tab" aria-selected="false" data-pane="ps">PowerShell</button>
+                <button type="button" role="tab" aria-selected="false" data-pane="res">Response</button>
+              </div>
+              <div class="code-tabs__pane is-active" data-pane="curl" data-copy>
+                <div class="code-frame__bar"><span>bash</span><button type="button" class="copy-btn">复制</button></div>
+                <pre class="docs-code" tabindex="0"><code>curl -X POST "http://127.0.0.1:{{ authorize_port }}/authorize" \
+  -H "Content-Type: application/json" \
+  -d '{"cpu_id":"BFEBFBFF000B0671","encrypted_info":"&lt;AES密文&gt;"}'</code></pre>
+              </div>
+              <div class="code-tabs__pane" data-pane="python" data-copy>
+                <div class="code-frame__bar"><span>python</span><button type="button" class="copy-btn">复制</button></div>
+                <pre class="docs-code" tabindex="0"><code>import requests
+r = requests.post(
+    "http://127.0.0.1:{{ authorize_port }}/authorize",
+    json={"cpu_id": "BFEBFBFF000B0671", "encrypted_info": "&lt;AES密文&gt;"},
+    timeout=10,
+)
+print(r.status_code, r.json())</code></pre>
+              </div>
+              <div class="code-tabs__pane" data-pane="ps" data-copy>
+                <div class="code-frame__bar"><span>powershell</span><button type="button" class="copy-btn">复制</button></div>
+                <pre class="docs-code" tabindex="0"><code>$body = @{ cpu_id = "BFEBFBFF000B0671"; encrypted_info = "&lt;AES密文&gt;" } | ConvertTo-Json
+Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:{{ authorize_port }}/authorize" `
+  -ContentType "application/json" -Body $body</code></pre>
+              </div>
+              <div class="code-tabs__pane" data-pane="res" data-copy>
+                <div class="code-frame__bar"><span>200 JSON</span><button type="button" class="copy-btn">复制</button></div>
+                <pre class="docs-code" tabindex="0"><code>{
+  "auth_code": "&lt;DES+Base64&gt;",
+  "device_fingerprint": "a1b2c3d4e5f67890",
+  "hardware_changed": false,
+  "is_new_device": true,
+  "tenant": "lvshui"
+}</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-block" data-example="authorize-yuanyi">
+            <h3>获取授权码 · 元一</h3>
+            <div class="code-tabs" data-tabs="ex-auth-yy">
+              <div class="code-tabs__list" role="tablist">
+                <button type="button" role="tab" aria-selected="true" data-pane="curl">cURL</button>
+                <button type="button" role="tab" aria-selected="false" data-pane="python">Python</button>
+                <button type="button" role="tab" aria-selected="false" data-pane="res">Response</button>
+              </div>
+              <div class="code-tabs__pane is-active" data-pane="curl" data-copy>
+                <div class="code-frame__bar"><span>bash</span><button type="button" class="copy-btn">复制</button></div>
+                <pre class="docs-code" tabindex="0"><code>curl -X POST "http://127.0.0.1:{{ authorize_port }}/authorize" \
+  -H "Content-Type: application/json" \
+  -d '{"tenant":"yuanyi","cpu_id":"...","encrypted_info":"..."}'</code></pre>
+              </div>
+              <div class="code-tabs__pane" data-pane="python" data-copy>
+                <div class="code-frame__bar"><span>python</span><button type="button" class="copy-btn">复制</button></div>
+                <pre class="docs-code" tabindex="0"><code>python request_auth.py --tenant yuanyi
+# 或
+python request_auth.py --force</code></pre>
+              </div>
+              <div class="code-tabs__pane" data-pane="res" data-copy>
+                <div class="code-frame__bar"><span>200 JSON</span><button type="button" class="copy-btn">复制</button></div>
+                <pre class="docs-code" tabindex="0"><code>{
+  "auth_code": "&lt;DES+Base64&gt;",
+  "tenant": "yuanyi",
+  "is_new_device": false,
+  "hardware_changed": false,
+  "device_fingerprint": "..."
+}</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="example-block">
+            <h3>校验授权码</h3>
+            <div class="code-tabs" data-tabs="ex-verify">
+              <div class="code-tabs__list" role="tablist">
+                <button type="button" role="tab" aria-selected="true" data-pane="curl">cURL</button>
+                <button type="button" role="tab" aria-selected="false" data-pane="python">Python</button>
+                <button type="button" role="tab" aria-selected="false" data-pane="res">Response</button>
+              </div>
+              <div class="code-tabs__pane is-active" data-pane="curl" data-copy>
+                <div class="code-frame__bar"><span>bash</span><button type="button" class="copy-btn">复制</button></div>
+                <pre class="docs-code" tabindex="0"><code>curl -X POST "http://127.0.0.1:{{ authorize_port }}/verify_auth_code" \
+  -H "Content-Type: application/json" \
+  -d '{"auth_code":"&lt;授权码&gt;"}'</code></pre>
+              </div>
+              <div class="code-tabs__pane" data-pane="python" data-copy>
+                <div class="code-frame__bar"><span>python</span><button type="button" class="copy-btn">复制</button></div>
+                <pre class="docs-code" tabindex="0"><code>import requests
+print(requests.post(
+    "http://127.0.0.1:{{ authorize_port }}/verify_auth_code",
+    json={"auth_code": "&lt;授权码&gt;"},
+).json())</code></pre>
+              </div>
+              <div class="code-tabs__pane" data-pane="res" data-copy>
+                <div class="code-frame__bar"><span>200 JSON</span><button type="button" class="copy-btn">复制</button></div>
+                <pre class="docs-code" tabindex="0"><code>{
+  "valid": true,
+  "payload": {
+    "cpu_id": "...",
+    "motherboard_id": "...",
+    "disk_id": "...",
+    "memory_id": "...",
+    "issued_at": "2026-11-02 15:00:00"
+  }
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </section></main><aside class="docs-reference" aria-label="代码参考"><div class="code-console"><section><div class="console-section-title"><i></i>示例代码</div><div class="reference-tabs" role="tablist" aria-label="示例语言"><button type="button" role="tab" data-lang="curl" aria-selected="false">cURL</button><button type="button" role="tab" data-lang="python" aria-selected="true">Python</button><button type="button" role="tab" data-lang="javascript" aria-selected="false">JavaScript</button><button class="reference-copy" type="button" id="copyRequest"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#copy"/></svg><span>复制代码</span></button></div><pre class="reference-code" id="referenceRequest" tabindex="0" aria-label="请求示例代码"></pre><p class="example-disclaimer"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#info"/></svg>示例 · 切换语言或响应不会发送真实请求</p></section><section class="response-reference"><div class="console-section-title"><i></i>响应示例</div><div class="reference-tabs" role="tablist" aria-label="响应示例"><button type="button" role="tab" data-response="success" aria-selected="true">200 成功</button><button type="button" role="tab" data-response="error" aria-selected="false">失败响应</button><button class="reference-copy" type="button" id="copyResponse"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#copy"/></svg><span>复制代码</span></button></div><pre class="reference-code" id="referenceResponse" tabindex="0" aria-label="响应示例代码"></pre><p class="response-hint">{% if auth_code_max_age_seconds > 0 %}授权码有效期 {{ auth_code_hours }} 小时。{% else %}当前配置不校验授权码过期。{% endif %}<br>具体值以服务端配置为准。</p></section></div><nav class="local-toc" aria-label="本页目录"><h3><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#list"/></svg>本页目录</h3><a href="#request-params" class="is-active">请求参数</a><a href="#policy-checks">授权校验流程</a><a href="#response-fields">响应字段</a></nav></aside></div><dialog id="docsSearch" class="search-dialog"><form method="dialog"><label><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#search"/></svg><input id="docsSearchInput" type="search" placeholder="搜索接口、参数或章节" autocomplete="off"><button type="submit" aria-label="关闭搜索">Esc</button></label></form><div id="docsSearchResults"></div><p>输入关键词搜索本页文档 · Enter 跳转首项</p></dialog><div class="copy-status" id="copyStatus" role="status" aria-live="polite"></div></div><script src="/static/js/docs.js?v=portal-3" defer></script><script src="/static/js/docs-portal.js?v=portal-3" defer></script></body></html>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="400" viewBox="0 0 1440 400" role="img" aria-label="DeviceTrust: hardware identity and authorization control">
+ <defs>
+  <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0D203D"/><stop offset="1" stop-color="#071323"/></linearGradient>
+  <linearGradient id="accent" x2="1" y2="1"><stop stop-color="#47D4EB"/><stop offset="1" stop-color="#5485FF"/></linearGradient>
+  <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0v32" fill="none" stroke="#76ADFA" stroke-opacity=".07"/></pattern>
+ </defs>
+ <rect width="1440" height="400" rx="18" fill="url(#bg)"/>
+ <rect x="760" width="680" height="400" fill="url(#grid)"/>
+ <g font-family="Arial,Helvetica,sans-serif">
+  <rect x="56" y="49" width="42" height="42" rx="12" fill="url(#accent)"/>
+  <path d="m77 57 13 7v15l-13 7-13-7V64Zm0 7-7 4v7l7 4 7-4v-7Z" fill="white" fill-rule="evenodd"/>
+  <text x="115" y="76" font-size="12" letter-spacing="2.3" fill="#9CC6EF">DEVICE AUTHORIZATION CONTROL PLANE</text>
+  <text x="54" y="177" font-size="68" font-weight="700" letter-spacing="-3" fill="#F4F8FF">DeviceTrust</text>
+  <text x="58" y="226" font-size="25" fill="#C3D6EF">Hardware identity. Authorization control.</text>
+  <text x="59" y="271" font-size="16" fill="#829CBF">Device admission · tenant-scoped policies · live audit visibility</text>
+  <rect x="58" y="313" width="100" height="28" rx="5" fill="#142B48" stroke="#284A70"/>
+  <text x="108" y="332" fill="#98C6EC" font-size="11" text-anchor="middle">SELF-HOSTED</text>
+  <text x="177" y="332" fill="#6F91B8" font-size="12">Flask / MySQL / Native SVG</text>
+  <path d="M890 204h78m168 0h78" stroke="#54BEEB" stroke-width="2"/>
+  <circle cx="927" cy="204" r="4" fill="#52DAE3"/>
+  <circle cx="1177" cy="204" r="4" fill="#52DAE3"/>
+  <rect x="772" y="140" width="118" height="128" rx="12" fill="#112640" stroke="#2B4A70"/>
+  <rect x="801" y="163" width="60" height="45" rx="6" fill="#193D66" stroke="#4385B8"/>
+  <path d="M812 157v6m12-6v6m12-6v6m12-6v6m-36 45v6m12-6v6m12-6v6m12-6v6" stroke="#5F9ECC" stroke-width="3"/>
+  <text x="831" y="192" font-family="monospace" font-size="16" fill="#99E5F2" text-anchor="middle">CPU</text>
+  <text x="831" y="244" fill="#8BA9CA" font-size="12" text-anchor="middle">IDENTITY</text>
+  <rect x="968" y="101" width="168" height="206" rx="16" fill="#122D4B" stroke="#4AA6D9"/>
+  <path d="m1052 133 39 15v31c0 28-39 52-39 52s-39-24-39-52v-31Z" fill="#184367" stroke="#5AC9EA" stroke-width="2"/>
+  <path d="m1035 180 12 12 23-28" fill="none" stroke="#7CE5E8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1052" y="266" fill="#C5E1F4" font-size="12" letter-spacing="1.5" text-anchor="middle">POLICY ENGINE</text>
+  <rect x="1214" y="140" width="150" height="128" rx="12" fill="#112640" stroke="#2B4A70"/>
+  <path d="M1255 161h65v50h-65Zm13 12h38m-38 10h26m-26 10h32" fill="none" stroke="#629ECF" stroke-width="2"/>
+  <text x="1289" y="244" fill="#8BA9CA" font-size="12" text-anchor="middle">AUTHORIZATION</text>
+ </g>
+</svg>

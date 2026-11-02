@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>设备授权管理平台 · 控制台</title><link rel="icon" type="image/svg+xml" href="/static/assets/logo-primary.svg?v=2"><link rel="stylesheet" href="/static/css/v3-common.css?v=ui-3.8"><link rel="stylesheet" href="/static/css/v3-console.css?v=ui-3.8"></head><body><nav class="sidebar locked" aria-label="主导航"><div class="logo_items"><button type="button" class="workspace-trigger" id="workspaceTrigger" aria-expanded="false" aria-controls="workspaceMenu"><img class="brand-mark" src="/static/assets/logo-primary.svg?v=2" alt=""><span class="logo_text"><strong class="logo_name">授权管理平台</strong><span class="logo_tag" id="tenantTag">铝水工作空间</span></span><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#chevron-down"/></svg></button><div class="workspace-menu hidden" id="workspaceMenu" role="menu"><button class="tenant-switch__btn is-active" type="button" data-tenant="lvshui" role="menuitemradio" aria-checked="true">铝水工作空间<svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#check"/></svg></button><button class="tenant-switch__btn" type="button" data-tenant="yuanyi" role="menuitemradio" aria-checked="false">元一工作空间<svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#check"/></svg></button></div></div><div class="menu_container"><div class="menu_items"><p class="nav-section">工作空间</p><ul class="menu_item"><li class="item"><a href="#" class="link is-active" data-tab="overview" title="数据概览"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#overview"/></svg><span>数据概览</span></a></li><li class="item"><a href="#" class="link " data-tab="records" title="授权记录"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#records"/></svg><span>授权记录</span></a></li><li class="item"><a href="#" class="link " data-tab="authlogs" title="授权日志"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#logs"/></svg><span>授权日志</span></a></li><li class="item"><a href="#" class="link " data-tab="whitelist" title="CPU 白名单"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#cpu"/></svg><span>CPU 白名单</span></a></li><li class="item"><a href="#" class="link " data-tab="devices" title="设备管理"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#devices"/></svg><span>设备管理</span></a></li><li class="item"><a href="/docs" class="link" title="接口文档" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#info"/></svg><span>接口文档</span></a></li></ul></div><div class="sidebar__actions"><div class="sidebar-controls"><button type="button" id="lock-icon" role="switch" aria-label="固定侧栏" aria-checked="true" aria-describedby="sidebarModeStatus"><svg class="icon sidebar-pin-icon" aria-hidden="true"><use href="/static/assets/icons.svg#pin"/></svg><span class="sidebar-setting-copy"><strong>固定侧栏</strong><small id="sidebarModeStatus" aria-live="polite">已固定</small></span><span class="sidebar-switch" aria-hidden="true"></span></button><button type="button" id="sidebar-close" aria-label="收起侧栏" title="收起侧栏"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#chevron-left"/></svg></button></div><button class="btn" type="button" id="change-password-button"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#lock"/></svg><span>修改密码</span></button><button class="btn" type="button" id="logout-button"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#logout"/></svg><span>退出登录</span></button></div></div></nav><section class="home-section"><header class="topbar"><div class="breadcrumb">管理控制台 <span>/</span> <strong id="breadcrumbTitle">数据概览</strong></div><div class="topbar__right"><span class="clock"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#clock"/></svg><time class="current-time mono">00:00:00</time></span><button type="button" class="profile-details" id="profileTrigger" aria-expanded="false"><span class="avatar">管</span><span class="admin_name">{{ session.name }}</span><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#chevron-down"/></svg></button><div class="account-menu hidden" id="accountMenu"><button type="button" data-account-action="password">修改密码</button><button type="button" data-account-action="logout">退出登录</button></div></div></header><main class="home-content"><div class="page-heading"><div><h1 id="pageTitle">数据概览</h1><p id="pageDesc">集中查看设备授权状态与接入记录</p></div><div class="page-actions" id="pageActions"><div class="refresh-tools" data-page-action="overview" role="group" aria-label="数据更新"><span class="refresh-status"><i aria-hidden="true"></i>自动更新</span><button type="button" id="manualRefresh" title="立即刷新当前业务线数据" aria-label="立即刷新数据"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#refresh"/></svg><span>刷新</span></button></div><button type="button" class="btn-sm btn-outline hidden" id="info-export" data-page-action="records"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#export"/></svg>导出 CSV</button><button type="button" class="btn-sm btn-outline hidden" id="log-export" data-page-action="authlogs"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#export"/></svg>导出 CSV</button><button type="button" class="btn-sm btn-outline hidden" id="cpu-export" data-page-action="whitelist"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#export"/></svg>导出 CSV</button><button class="btn-sm btn-outline hidden" type="button" id="openImport" data-page-action="whitelist"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#import"/></svg>批量导入</button><button class="btn-sm hidden" type="button" id="openAddCpu" data-page-action="whitelist"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#add"/></svg>添加 CPU</button></div></div><div class="tab-panel" id="tab-overview"><div class="ops-strip"><div class="ops-strip__main"><span class="ops-tenant" id="opsTenantBadge">铝水业务线</span><span>今日成功率 <strong id="opsSuccessRate" class="mono">—</strong></span><span class="ops-last">最近授权 <strong id="opsLastAuth" class="mono">暂无</strong></span></div><button class="text-button" type="button" id="viewPolicy" aria-haspopup="dialog" aria-controls="policyModal">查看授权策略</button></div><div class="ops-main"><section class="panel ops-signal"><div class="ops-signal__pair"><article class="ops-metric ops-metric--ok"><span class="metric-icon"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#authorize"/></svg></span><span class="ops-metric__label">今日授权成功</span><span class="ops-metric__value today-authorized-count">—</span><span class="ops-metric__hint">当日成功授权次数</span><svg id="successSparkline" viewBox="0 0 150 45" aria-hidden="true"><path fill="none" stroke="#4768EF" stroke-width="2"/></svg></article><article class="ops-metric ops-metric--fail"><span class="metric-icon"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#error"/></svg></span><span class="ops-metric__label">今日授权失败</span><div class="metric-value-row"><span class="ops-metric__value today-failed-count">—</span><span class="unknown-devices-count badge badge--fail">未知设备 — 台</span></div><span class="ops-metric__hint">当日失败授权次数</span></article></div></section><section class="panel ops-secondary"><div class="ops-secondary__item"><div class="secondary-label"><span class="secondary-icon"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#cpu"/></svg></span><span>CPU 白名单</span></div><strong class="ops-secondary__value cpu-count">—</strong><span class="ops-metric__hint">当前业务线</span></div><div class="ops-secondary__item"><div class="secondary-label"><span class="secondary-icon"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#devices"/></svg></span><span>已授权设备</span></div><strong class="ops-secondary__value authorized-count">—</strong><span class="ops-metric__hint">当前业务线</span></div><div class="ops-secondary__item"><div class="secondary-label"><span class="secondary-icon"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#new-device"/></svg></span><span>今日新设备</span></div><strong class="ops-secondary__value today-new-devices-count">—</strong><span class="ops-metric__hint">今日首次授权</span></div></section></div><div class="dashboard-grid"><section class="panel chart-panel"><div class="panel__head"><div><h2 class="panel__title">授权趋势</h2><p class="panel__desc">成功与失败请求次数</p></div><div class="trend-legend"><span>成功</span><span>失败</span></div><div class="chart-tabs"><button type="button" class="chart-tab is-active" data-days="7">7 天</button><button type="button" class="chart-tab" data-days="30">30 天</button></div></div><div class="chart-wrap"><canvas id="trendChart"></canvas></div></section><section class="panel chart-panel"><div class="panel__head"><h2 class="panel__title">失败原因分布</h2><span class="panel__desc">近 7 天</span></div><div class="failure-layout"><div class="donut-wrap"><canvas id="failReasonChart"></canvas><div class="donut-total"><strong id="failureTotal">—</strong><span>失败次数</span></div></div><div class="failure-legend" id="failureLegend"></div></div><p class="failure-hint">失败原因以服务端分类结果为准</p></section></div><section class="panel feed-panel"><div class="panel__head"><h2 class="panel__title">实时授权动态</h2><div class="feed-actions"><span class="auto-refresh" id="liveStatus" data-state="connecting">实时连接中…</span><button class="text-button" id="allLogs" type="button">全部日志 ↗</button></div></div><div class="feed-table-head"><span>请求时间</span><span>CPU_ID</span><span>来源 IP</span><span>授权结果</span><span>设备标记</span><span>说明</span></div><div class="auth-feed" id="authFeed"></div></section></div>      <!-- 授权记录 -->
+      <div class="tab-panel hidden" id="tab-records">
+        <div class="box panel">
+          <div class="panel__head">
+            
+            <div class="toolbar">
+              <label class="filter-field"><span>关键词</span><input type="text" id="info-q" class="search-input" placeholder="关键词"></label>
+              <label class="filter-field"><span>CPU_ID</span><input type="text" id="info-cpu" class="search-input" placeholder="CPU_ID"></label>
+              <label class="filter-field"><span>来源 IP</span><input type="text" id="info-ip" class="search-input" placeholder="IP"></label>
+              <label class="filter-field"><span>开始日期</span><input type="date" id="info-start" class="search-input"></label>
+              <label class="filter-field"><span>结束日期</span><input type="date" id="info-end" class="search-input"></label>
+              <button type="button" class="btn-sm" id="info-search">搜索</button><button type="button" class="btn-sm btn-outline" data-reset="info">重置</button>
+              
+            </div>
+          </div>
+<div class="list-heading"><strong>授权设备信息</strong><span class="badge badge--neutral">成功授权</span><span class="auto-refresh">自动刷新当前页</span></div>          <div class="table-shell">
+            <table id="infoTable">
+              <thead>
+                <tr><th>时间</th><th>IP</th><th>CPU_ID</th><th>主板 ID</th><th>磁盘 ID</th><th>内存 ID</th><th>设备指纹</th><th>新设备</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="pager" data-table="info">
+            <span class="pager__total" data-total>共 0 条</span>
+            <div class="pager__controls">
+              <label class="pager__size">
+                <span class="pager__size-label">每页</span>
+                <span class="select-wrap">
+                  <select class="pager__select" data-page-size id="pageSize">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                  </select>
+                </span>
+                <span class="pager__size-suffix">条</span>
+              </label>
+              <span class="page-info pager__pages">第 1 / 1 页</span>
+              <div class="pager__nav">
+                <button type="button" class="pager__btn btn-prev" aria-label="上一页">‹</button>
+                <button type="button" class="pager__btn btn-next" aria-label="下一页">›</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 授权日志 -->
+      <div class="tab-panel hidden" id="tab-authlogs">
+        <div class="box panel">
+          <div class="panel__head">
+            
+            <div class="toolbar">
+              <label class="filter-field"><span>CPU_ID</span><input type="text" id="log-cpu" class="search-input" placeholder="CPU_ID"></label>
+              <label class="filter-field"><span>来源 IP</span><input type="text" id="log-ip" class="search-input" placeholder="IP"></label>
+              <label class="filter-field"><span>授权结果</span><select id="log-result" class="search-input"><option value="">全部结果</option><option value="success">成功</option><option value="fail">失败</option></select></label>
+              <label class="filter-field"><span>开始日期</span><input type="date" id="log-start" class="search-input"></label>
+              <label class="filter-field"><span>结束日期</span><input type="date" id="log-end" class="search-input"></label>
+              <button type="button" class="btn-sm" id="log-search">搜索</button><button type="button" class="btn-sm btn-outline" data-reset="log">重置</button>
+              
+            </div>
+          </div>
+<div class="list-heading"><strong>全部授权日志</strong><span class="badge badge--neutral">成功 + 失败</span><span class="auto-refresh">自动刷新当前页</span></div>          <div class="table-shell">
+            <table id="authLogTable">
+              <thead>
+                <tr><th>时间</th><th>CPU_ID</th><th>IP</th><th>结果</th><th>原因</th><th>返回授权码</th><th>硬件变更</th><th>设备指纹</th><th>新设备</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="pager" data-table="logs">
+            <span class="pager__total" data-total>共 0 条</span>
+            <div class="pager__controls">
+              <label class="pager__size">
+                <span class="pager__size-label">每页</span>
+                <span class="select-wrap">
+                  <select class="pager__select" data-page-size id="logPageSize">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                  </select>
+                </span>
+                <span class="pager__size-suffix">条</span>
+              </label>
+              <span class="page-info pager__pages">第 1 / 1 页</span>
+              <div class="pager__nav">
+                <button type="button" class="pager__btn btn-prev" aria-label="上一页">‹</button>
+                <button type="button" class="pager__btn btn-next" aria-label="下一页">›</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CPU 白名单 -->
+      <div class="tab-panel hidden" id="tab-whitelist">
+        <div class="box panel">
+          <div class="panel__head">
+            
+            <div class="toolbar">
+              <input type="text" id="cpu-q" class="search-input" placeholder="搜索 CPU / 备注">
+              <button type="button" class="btn-sm" id="cpu-search">搜索</button>
+              
+            </div>
+          </div>
+          <div class="table-shell">
+            <table id="cpuTable">
+              <thead>
+                <tr><th>CPU_ID</th><th>状态</th><th>备注</th><th>到期时间</th><th>首次授权</th><th>最近授权</th><th>授权次数</th><th>操作</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="pager" data-table="cpu">
+            <span class="pager__total" data-total>共 0 条</span>
+            <div class="pager__controls">
+              <label class="pager__size">
+                <span class="pager__size-label">每页</span>
+                <span class="select-wrap">
+                  <select class="pager__select" data-page-size id="cpuPageSize">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                  </select>
+                </span>
+                <span class="pager__size-suffix">条</span>
+              </label>
+              <span class="page-info pager__pages">第 1 / 1 页</span>
+              <div class="pager__nav">
+                <button type="button" class="pager__btn btn-prev" aria-label="上一页">‹</button>
+                <button type="button" class="pager__btn btn-next" aria-label="下一页">›</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 设备管理（按指纹） -->
+      <div class="tab-panel hidden" id="tab-devices">
+        <div class="status-summary" id="statusSummary"></div>
+        <div class="box panel">
+          <div class="panel__head">
+            
+            <div class="toolbar">
+              <input type="text" id="device-q" class="search-input" placeholder="搜索别名 / 指纹 / CPU">
+              <div class="view-toggle">
+                <button type="button" class="btn-sm view-btn is-active" data-view="flat">列表</button>
+                <button type="button" class="btn-sm view-btn" data-view="tree">CPU 分组</button>
+              </div>
+              <button type="button" class="btn-sm" id="device-search">搜索</button>
+            </div>
+          </div>
+          <div class="table-shell" id="deviceFlatWrap">
+            <table id="deviceTable">
+              <thead>
+                <tr><th>别名</th><th>设备指纹</th><th>CPU_ID</th><th>状态</th><th>首次授权</th><th>最近授权</th><th>次数</th><th>操作</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="device-tree hidden" id="deviceTree"></div>
+          <div class="pager" data-table="devices">
+            <span class="pager__total" data-total>共 0 条</span>
+            <div class="pager__controls">
+              <label class="pager__size">
+                <span class="pager__size-label">每页</span>
+                <span class="select-wrap">
+                  <select class="pager__select" data-page-size id="devicePageSize">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                  </select>
+                </span>
+                <span class="pager__size-suffix">条</span>
+              </label>
+              <span class="page-info pager__pages">第 1 / 1 页</span>
+              <div class="pager__nav">
+                <button type="button" class="pager__btn btn-prev" aria-label="上一页">‹</button>
+                <button type="button" class="pager__btn btn-next" aria-label="下一页">›</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<footer class="console-footer">设备授权管理平台 · <span data-current-tenant>铝水</span>业务线</footer></main></section>  <!-- 修改密码弹窗 -->
+  <div class="modal hidden" id="passwordModal">
+    <div class="modal__backdrop" data-close-password></div>
+    <div class="modal__content modal__content--sm" role="dialog" aria-modal="true" aria-labelledby="passwordModalTitle">
+      <div class="modal__head">
+        <h3 id="passwordModalTitle">修改密码</h3>
+        <button type="button" class="modal__close" id="closePassword" aria-label="关闭">&times;</button>
+      </div>
+      <p class="modal__hint">修改成功后需使用新密码重新登录</p>
+      <div class="auth__alert auth__alert--error hidden" id="passwordAlert" role="alert" aria-live="polite"></div>
+      <form class="password-form" id="passwordForm" autocomplete="off">
+        <label class="password-form__field">
+          <span>当前密码</span>
+          <input type="password" id="oldPassword" name="old_password" class="input-add" required autocomplete="current-password" placeholder="请输入当前密码">
+        </label>
+        <label class="password-form__field">
+          <span>新密码</span>
+          <input type="password" id="newPassword" name="new_password" class="input-add" required autocomplete="new-password" placeholder="至少 8 位，含大小写、数字与符号">
+        </label>
+        <label class="password-form__field">
+          <span>确认新密码</span>
+          <input type="password" id="confirmPassword" name="confirm_password" class="input-add" required autocomplete="new-password" placeholder="再次输入新密码">
+        </label>
+        <div class="password-rules">密码须同时包含大小写字母、数字和特殊符号。<br><span>新密码不能与当前密码相同。</span></div><div class="password-form__actions">
+          <button type="button" class="button-cancel" id="cancelPassword">取消</button>
+          <button type="submit" class="button-add" id="submitPassword">更新密码</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 设备历史弹窗 -->
+  <div class="modal hidden" id="historyModal">
+    <div class="modal__backdrop"></div>
+    <div class="modal__content">
+      <div class="modal__head">
+        <h3 id="historyTitle">设备授权历史</h3>
+        <button type="button" class="modal__close" id="closeHistory">&times;</button>
+      </div>
+      <p class="modal__hint" id="historySubtitle"></p><div class="history-stats" id="historyStats"></div><p class="history-note" id="historyNote"></p>
+      <div class="table-shell modal-table">
+        <table>
+          <thead><tr><th>时间</th><th>IP</th><th>主板</th><th>磁盘</th><th>内存</th><th>设备指纹</th><th>新设备</th></tr></thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+      <div class="pager pager--modal" data-table="history">
+        <span class="pager__total" data-total>共 0 条</span>
+        <div class="pager__controls">
+          <label class="pager__size">
+            <span class="pager__size-label">每页</span>
+            <span class="select-wrap">
+              <select class="pager__select" data-page-size id="historyPageSize">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+              </select>
+            </span>
+            <span class="pager__size-suffix">条</span>
+          </label>
+          <span class="page-info pager__pages">第 1 / 1 页</span>
+          <div class="pager__nav">
+            <button type="button" class="pager__btn btn-prev" aria-label="上一页">‹</button>
+            <button type="button" class="pager__btn btn-next" aria-label="下一页">›</button>
+          </div>
+        </div>
+      </div><div class="history-footer"><button type="button" class="btn-sm btn-outline" data-close-history>关闭</button></div>
+    </div>
+  </div>
+
+<div class="modal hidden" id="addCpuModal"><div class="modal__backdrop" data-dismiss="addCpuModal"></div><div class="modal__content modal__content--sm" role="dialog" aria-modal="true" aria-labelledby="addCpuTitle"><div class="modal__head"><h3 id="addCpuTitle">添加 CPU</h3><button type="button" class="modal__close" data-dismiss="addCpuModal" aria-label="关闭"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#close"/></svg></button></div><p class="modal__hint">将 CPU 身份加入当前业务线白名单</p><div class="context-banner">当前业务线：<span data-current-tenant>铝水</span> · 添加后默认启用</div><div class="add-cpu"><label class="password-form__field"><span>CPU_ID *</span><input type="text" id="newCpuId" class="input-add" placeholder="CPU Processor ID"></label><label class="password-form__field"><span>备注</span><input type="text" id="newCpuNote" class="input-add" placeholder="设备分组、客户或用途"></label><label class="password-form__field"><span>到期时间</span><input type="datetime-local" id="newCpuExpires" class="input-add"></label><p class="muted">留空表示永久有效。授权仍需满足设备状态和其他策略。</p><div class="modal-actions"><button type="button" class="btn-sm btn-outline" data-dismiss="addCpuModal">取消</button><button type="button" id="addCpuId" class="btn-sm">添加 CPU</button></div></div></div></div>
+<div class="modal hidden" id="importModal"><div class="modal__backdrop" data-dismiss="importModal"></div><div class="modal__content import-modal" role="dialog" aria-modal="true" aria-labelledby="importTitle"><div class="modal__head"><h3 id="importTitle">批量导入 CPU</h3><button class="modal__close" type="button" data-dismiss="importModal" aria-label="关闭"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#close"/></svg></button></div><p class="modal__hint">将 CSV 文件导入当前业务线白名单</p><div class="context-banner">CSV 列顺序：CPU_ID、备注、到期时间<br><small>第一列必填，后两列可为空；重复 CPU 将跳过。</small></div><label class="upload-zone" id="uploadZone"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#import"/></svg><strong>将 CSV 文件拖到这里，或选择文件</strong><span>支持 UTF-8 编码的 .csv 文件</span><span class="btn-sm btn-outline">选择文件</span><input type="file" id="cpuImportFile" accept=".csv" hidden></label><p class="muted">格式示例</p><pre class="csv-example">cpu_id,note,expires_at
+BFEBFBFF000906EA,设备组 A,</pre><p id="selectedImportFile" class="muted" role="status">尚未选择文件</p><div class="modal-actions"><button class="btn-sm btn-outline" type="button" data-dismiss="importModal">取消</button><button class="btn-sm" type="button" id="startImport" disabled>开始导入</button></div></div></div>
+<div class="modal hidden" id="confirmModal"><div class="modal__backdrop" data-confirm-cancel></div><div class="modal__content modal__content--sm" role="dialog" aria-modal="true" aria-labelledby="confirmTitle"><div class="modal__head"><h3 id="confirmTitle">确认操作</h3><button class="modal__close" type="button" data-confirm-cancel aria-label="关闭"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#close"/></svg></button></div><p class="modal__hint" id="confirmMessage"></p><div class="context-banner">当前业务线：<span data-current-tenant>铝水</span><code id="confirmTarget"></code></div><div class="modal-actions"><button class="btn-sm btn-outline" type="button" data-confirm-cancel>取消</button><button class="btn-sm" type="button" id="confirmProceed">确认</button></div></div></div>
+<div class="modal hidden" id="aliasModal"><div class="modal__backdrop" data-dismiss="aliasModal"></div><form class="modal__content modal__content--sm" id="aliasForm" role="dialog" aria-modal="true" aria-labelledby="aliasTitle"><div class="modal__head"><h3 id="aliasTitle">编辑设备别名</h3><button class="modal__close" type="button" data-dismiss="aliasModal" aria-label="关闭"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#close"/></svg></button></div><p class="modal__hint">为设备设置容易识别的名称</p><label class="password-form__field"><span>设备别名</span><input class="input-add" id="aliasInput" placeholder="设备分组、客户或用途"></label><div class="modal-actions"><button class="btn-sm btn-outline" type="button" data-dismiss="aliasModal">取消</button><button class="btn-sm" type="submit">保存</button></div></form></div><div class="modal hidden" id="importResultModal"><div class="modal__backdrop" data-dismiss="importResultModal"></div><div class="modal__content import-modal" role="dialog" aria-modal="true" aria-labelledby="importResultTitle"><div class="modal__head"><h3 id="importResultTitle">导入完成</h3><button class="modal__close" type="button" data-dismiss="importResultModal" aria-label="关闭">×</button></div><div class="import-success"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#success"/></svg><h4>CPU 白名单导入完成</h4><p id="importResultMessage"></p><div class="import-counts"><div><span>新增 CPU</span><strong id="importAdded">—</strong></div><div><span>跳过重复</span><strong id="importSkipped">—</strong></div></div></div><div class="modal-actions"><button type="button" class="btn-sm" data-dismiss="importResultModal">完成</button></div></div></div><div class="modal hidden" id="policyModal"><div class="modal__backdrop" data-dismiss="policyModal"></div><section class="modal__content modal__content--sm policy-modal" role="dialog" aria-modal="true" aria-labelledby="policyModalTitle"><div class="modal__head"><h3 id="policyModalTitle">授权策略</h3><button type="button" class="modal__close" data-dismiss="policyModal" aria-label="关闭"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#close"/></svg></button></div><p class="modal__hint">查看当前业务线正在执行的授权规则</p><div class="policy-tenant"><svg class="icon" aria-hidden="true"><use href="/static/assets/icons.svg#policy"/></svg><span data-current-tenant>铝水</span>业务线<span class="policy-readonly">只读</span></div><div id="policyTags" aria-live="polite" aria-label="授权策略"><p class="muted">正在加载策略…</p></div><p class="policy-footnote">策略以服务端配置为准，设备授权时自动执行。</p><div class="modal-actions"><button class="btn-sm btn-outline" type="button" data-dismiss="policyModal">关闭</button></div></section></div><div class="toast hidden" id="toast" role="status" aria-live="polite"></div><script src="/static/js/vendor/chart.umd.min.js"></script><script src="/static/js/v3-ui.js?v=ui-3.7"></script><script src="/static/js/script.js?v=ui-3.8"></script></body></html>
+
+
+
+
+
