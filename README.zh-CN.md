@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/assets/cover.svg" alt="DeviceTrust 设备身份与授权管理" width="100%">
+  <img src="docs/assets/hero.png" alt="DeviceTrust 设备身份与授权管理" width="100%">
   <h1>DeviceTrust</h1>
   <p><strong>面向设备身份、授权策略与接入审计的自托管控制台。</strong></p>
   <p><a href="README.md">English</a> · <a href="docs/configuration.md">配置说明</a> · <a href="docs/protocol.md">设备协议</a></p>
@@ -8,6 +8,32 @@
 DeviceTrust 将设备上报的 CPU、主板、磁盘和内存信息转换为硬件指纹，在 CPU 白名单、设备状态、请求频率和日授权额度校验后签发授权码。控制台负责设备准入、业务线数据管理、实时动态和授权记录追溯。
 
 前端由 Flask 模板、原生 JavaScript 与 SVG 组件组成，无需 npm 构建。接口文档提供搜索、代码语言切换、请求/响应对照和四步原生 SVG 流程演示。
+
+## 产品预览
+
+### 01 / 设备授权，一屏掌握
+
+从今日授权结果到七日趋势、失败原因和实时动态，将设备接入状态集中到同一工作空间。白名单、设备管理与授权审计沿用统一的操作体验。
+
+<a href="docs/assets/console.png"><img src="docs/assets/console.png" alt="真实控制台：授权指标、趋势、失败分布与实时设备动态" width="100%"></a>
+
+<sub>截图来自实际应用界面，全部使用合成演示数据；展示数值不代表性能测试结果。</sub>
+
+### 02 / 面向接入开发者的文档工作台
+
+接口说明、参数约定与请求响应并排呈现。支持文档搜索、Python / cURL / JavaScript 示例切换，以及原生分层 SVG 授权过程演示。
+
+<a href="docs/assets/developer-portal.png"><img src="docs/assets/developer-portal.png" alt="真实开发者文档：接口参数、SVG 展示与请求响应示例" width="100%"></a>
+
+### 03 / 统一的账户入口
+
+登录、注册与重置密码采用同一套视觉语言，入口清晰，状态反馈直接。
+
+<details>
+<summary>展开查看登录界面</summary>
+<br>
+<img src="docs/assets/login.png" alt="DeviceTrust 登录界面" width="100%">
+</details>
 
 ## 能力
 
@@ -72,4 +98,4 @@ python -m unittest discover -s tests -v
 
 测试覆盖硬件加解密、授权码时效、异常密文、硬件指纹、会话保护、退出行为和事件推送；使用临时测试密钥，不连接真实数据库或设备。GitHub Actions 提供 Python 3.11 / 3.12 检查。
 
-完整架构、目录、配置表与第三方组件声明见 [English README](README.md)。
+完整分层说明、目录、配置表与第三方组件声明见 [English README](README.md)。

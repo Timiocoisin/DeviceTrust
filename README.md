@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/assets/cover.svg" alt="DeviceTrust — Hardware identity. Authorization control." width="100%">
+  <img src="docs/assets/hero.png" alt="DeviceTrust — Hardware identity. Authorization control." width="100%">
   <p><strong>A self-hosted control plane for hardware-bound device authorization.</strong></p>
   <p>
     <a href="https://github.com/Timiocoisin/DeviceTrust/actions/workflows/check.yml"><img alt="Checks" src="https://github.com/Timiocoisin/DeviceTrust/actions/workflows/check.yml/badge.svg"></a>
@@ -29,21 +29,41 @@ The interface includes a responsive operations dashboard and a developer portal 
 | **Live visibility** | In-process WebSocket events with polling fallback, trend charts, and failure breakdowns. |
 | **Developer experience** | Public `/docs`, Python/cURL/JavaScript examples, explicit live-request forms, and `request_auth.py`. |
 
-## How it fits together
+## Inside DeviceTrust
 
-```mermaid
-flowchart LR
-    Device[Device client] -->|CPU ID + encrypted hardware| API[Flask authorization API]
-    API --> Policy[Allowlist · device state · rate limits · daily limit]
-    Policy --> DB[(MySQL)]
-    Policy -->|Accepted| Code[Time-stamped authorization code]
-    Code --> Device
-    API --> Events[In-process event hub]
-    Events -->|WebSocket| Console[Operator console]
-    Console -->|Session-protected management APIs| API
-```
+### 01 / Operations, at a glance
 
-The default runner serves the **same Flask application** on two ports: `7070` for console access and `8080` for device integration. These are convenient entry points, not separate security boundaries. The WebSocket hub and rate-limit state live in one process; multiple independent workers require a shared event/state design.
+One workspace for admission decisions and the activity behind them. Track authorization volume, inspect failures, and identify newly seen hardware without leaving the overview.
+
+<a href="docs/assets/console.png"><img src="docs/assets/console.png" alt="Actual DeviceTrust console: authorization metrics, seven-day trends, failure breakdown, and device activity" width="100%"></a>
+
+<sub>Actual application UI, rendered with synthetic demonstration data. Counts illustrate the interface; they are not performance benchmarks.</sub>
+
+### 02 / Built for the integration desk
+
+A dedicated developer surface brings endpoint references, parameter contracts, and runnable examples into one view. Search the documentation, switch between Python, cURL, and JavaScript, and compare success and failure responses alongside the request.
+
+<a href="docs/assets/developer-portal.png"><img src="docs/assets/developer-portal.png" alt="Actual developer portal with endpoint documentation, layered SVG illustration, and request/response code panels" width="100%"></a>
+
+### 03 / A focused entry point
+
+The account experience shares the console's visual language, with dedicated sign-in, registration, and password-reset panels.
+
+<details>
+<summary>View the sign-in interface</summary>
+<br>
+<img src="docs/assets/login.png" alt="DeviceTrust sign-in interface" width="100%">
+</details>
+
+## From hardware identity to operational context
+
+| Layer | Responsibility | Implementation |
+| --- | --- | --- |
+| **Identity** | Decode reported hardware and derive a stable device fingerprint. | Python client · hardware decoder · SHA-256 fingerprint |
+| **Decision** | Evaluate CPU admission, expiry, device blocking, request frequency, and daily usage. | Flask authorization API · tenant-scoped policies |
+| **Visibility** | Persist outcomes and make request activity available to operators. | MySQL · in-process events · WebSocket / polling |
+
+The default runner serves the **same Flask application** on ports `7070` and `8080`. WebSocket delivery and rate-limit state are process-local. See [deployment configuration](docs/configuration.md) for serving and scaling boundaries.
 
 ## Quick start
 
@@ -161,4 +181,4 @@ The included Werkzeug runner is intended for local/trusted-network evaluation. P
 
 ## Third-party components
 
-Chart.js 4.4.1 is vendored for local chart rendering. Its copyright and MIT notice are retained in [`static/js/vendor/LICENSE.chartjs.txt`](static/js/vendor/LICENSE.chartjs.txt). Repository artwork and diagrams illustrate the product; they contain no operational device records.
+Chart.js 4.4.1 is vendored for local chart rendering. Its copyright and MIT notice are retained in [`static/js/vendor/LICENSE.chartjs.txt`](static/js/vendor/LICENSE.chartjs.txt). Product screenshots are captured from the application using synthetic demonstration data. The cover is a presentation composition of that interface; none of these images contains operational device records.
