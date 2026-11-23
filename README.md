@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/assets/aegis-cover.png" alt="DeviceTrust — Hardware identity. Authorization control." width="100%">
+  <img src="docs/assets/aegis-cover-r2.png" alt="DeviceTrust — Hardware identity. Authorization control." width="100%">
   <p><strong>A self-hosted control plane for hardware-bound device authorization.</strong></p>
   <p>
     <a href="https://github.com/Timiocoisin/DeviceTrust/actions/workflows/check.yml"><img alt="Checks" src="https://github.com/Timiocoisin/DeviceTrust/actions/workflows/check.yml/badge.svg"></a>
@@ -35,7 +35,7 @@ The interface includes a responsive operations dashboard and a developer portal 
 
 One workspace for admission decisions and the activity behind them. Track authorization volume, inspect failures, and identify newly seen hardware without leaving the overview.
 
-<a href="docs/assets/aegis-dashboard.png"><img src="docs/assets/aegis-dashboard.png" alt="Actual DeviceTrust console: authorization metrics, seven-day trends, failure breakdown, and device activity" width="100%"></a>
+<a href="docs/assets/aegis-dashboard-r2.png"><img src="docs/assets/aegis-dashboard-r2.png" alt="Actual DeviceTrust console: authorization metrics, seven-day trends, failure breakdown, and device activity" width="100%"></a>
 
 <sub>Actual application UI, rendered with synthetic demonstration data. Counts illustrate the interface; they are not performance benchmarks.</sub>
 
@@ -43,7 +43,7 @@ One workspace for admission decisions and the activity behind them. Track author
 
 A dedicated developer surface brings endpoint references, parameter contracts, and runnable examples into one view. Search the documentation, switch between Python, cURL, and JavaScript, and compare success and failure responses alongside the request.
 
-<a href="docs/assets/aegis-developer-portal.png"><img src="docs/assets/aegis-developer-portal.png" alt="Actual developer portal with endpoint documentation, layered SVG illustration, and request/response code panels" width="100%"></a>
+<a href="docs/assets/aegis-developer-portal-r2.png"><img src="docs/assets/aegis-developer-portal-r2.png" alt="Actual developer portal with endpoint documentation, layered SVG illustration, and request/response code panels" width="100%"></a>
 
 ### 03 / A focused entry point
 
@@ -52,17 +52,17 @@ The account experience shares the console's visual language, with dedicated sign
 <details>
 <summary>View the sign-in interface</summary>
 <br>
-<img src="docs/assets/aegis-login.png" alt="DeviceTrust sign-in interface" width="100%">
+<img src="docs/assets/aegis-login-r2.png" alt="DeviceTrust sign-in interface" width="100%">
 </details>
 
-More desktop previews: [Authorization records](docs/assets/aegis-records.png) · [Audit logs](docs/assets/aegis-logs.png) · [CPU allowlist](docs/assets/aegis-cpu-whitelist.png) · [Devices](docs/assets/aegis-devices.png)
+More desktop previews: [Authorization records](docs/assets/aegis-records-r2.png) · [Audit logs](docs/assets/aegis-logs-r2.png) · [CPU allowlist](docs/assets/aegis-cpu-whitelist-r2.png) · [Devices](docs/assets/aegis-devices-r2.png)
 
 ### Mobile previews
 
 <p align="center">
-  <a href="docs/assets/aegis-login-mobile.png"><img src="docs/assets/aegis-login-mobile.png" width="29%" alt="Mobile sign-in"></a>
-  <a href="docs/assets/aegis-dashboard-mobile.png"><img src="docs/assets/aegis-dashboard-mobile.png" width="29%" alt="Mobile console"></a>
-  <a href="docs/assets/aegis-docs-mobile.png"><img src="docs/assets/aegis-docs-mobile.png" width="29%" alt="Mobile documentation"></a>
+  <a href="docs/assets/aegis-login-mobile-r2.png"><img src="docs/assets/aegis-login-mobile-r2.png" width="29%" alt="Mobile sign-in"></a>
+  <a href="docs/assets/aegis-dashboard-mobile-r2.png"><img src="docs/assets/aegis-dashboard-mobile-r2.png" width="29%" alt="Mobile console"></a>
+  <a href="docs/assets/aegis-docs-mobile-r2.png"><img src="docs/assets/aegis-docs-mobile-r2.png" width="29%" alt="Mobile documentation"></a>
 </p>
 
 ## From hardware identity to operational context

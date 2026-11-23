@@ -1,0 +1,246 @@
+/* Layout rules carried over from the supplied AEGIS artboard. */
+.logo {display:flex;align-items:center;gap:11px;padding:31px 23px 25px}
+.mark {width:35px;height:35px;display:grid;place-items:center;background:#112a32;border:1px solid #3a807e;border-radius:10px;color:var(--cyan);font-size:21px;box-shadow:0 0 22px #30d6c21c}
+.brand {font-weight:800;font-size:16px;letter-spacing:.3px}
+.brand small {font-weight:500;font-size:9px;letter-spacing:2px;display:block;color:#8ca0ad;margin-top:4px}
+.workspace {margin:0 14px 23px;padding:13px 12px;border:1px solid #304256;background:#111e2c;border-radius:9px}
+.eyebrow {font-size:10px;color:#7a8ea4;letter-spacing:1.5px;font-weight:700}
+.navlabel {font-size:10px;color:#667e96;letter-spacing:1.8px;padding:0 25px;margin:8px 0 12px}
+.sidebottom {margin-top:auto;padding:18px 14px 25px;border-top:1px solid #203044}
+.sidebar-note {font-size:10px;letter-spacing:1.5px;color:#496278;padding:10px 12px}
+.crumb {color:#75899f}
+.crumb strong {color:#e7eff8;font-weight:600}
+.righttools {display:flex;gap:22px;align-items:center;color:#91a4b7}
+.content {padding:34px 38px 60px;max-width:1630px;margin:0 auto}
+.overline {color:var(--cyan);letter-spacing:2.5px;font-size:10px;font-weight:800;margin-bottom:13px}
+.pagehead {display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:30px}
+.pagehead h1 {font-weight:750;font-size:30px;margin:0 0 9px;letter-spacing:-.7px}
+.loginbrand {position:relative;padding:65px 8vw;overflow:hidden;background:radial-gradient(circle at 30% 58%,#124c5866,transparent 48%),linear-gradient(140deg,#0a1b29,#08101a)}
+.loginbrand .heroover {margin-top:15vh;color:var(--cyan);letter-spacing:3px;font-size:11px}
+.loginbrand h1 {font-size:clamp(36px,4vw,66px);line-height:1.15;letter-spacing:-2px;max-width:600px;margin:19px 0}
+.loginbrand p {font-size:15px;line-height:2;color:#a1b5c7;max-width:470px}
+.orbit {height:330px;width:330px;border:1px solid #2b87936b;border-radius:50%;position:absolute;right:-35px;bottom:85px;box-shadow:inset 0 0 40px #39cfd020,0 0 60px #1acaba17}
+.orbit:before,.orbit:after {content:'';position:absolute;inset:45px;border:1px dashed #4c9bac80;border-radius:50%}
+.orbit:after {inset:105px;border:2px solid #5de3c9;box-shadow:0 0 40px #5ce3c955}
+.featureline {display:flex;gap:24px;margin-top:45px;color:#b6d4da;font-size:12px}
+.featureline span:before {content:'◆';color:var(--cyan);margin-right:8px}
+.loginform {display:flex;align-items:center;justify-content:center;padding:50px}
+.authbox {width:min(390px,100%)}
+.authbox h2 {font-size:30px;margin:0 0 10px}
+.authbox p {color:#8a9fb4;margin-bottom:32px;line-height:1.8}
+.authbox label {display:block;color:#a5b8c9;margin:17px 0 8px}
+.authbox input {width:100%}
+.docsbar {padding:22px 6%;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.docsbody {display:grid;grid-template-columns:230px minmax(0,800px);gap:60px;max-width:1220px;padding:55px 35px;margin:auto}
+.docstoc {border-right:1px solid var(--line);position:sticky;top:20px;height:max-content;padding:10px}
+.mobile-nav {display:none}
+@media(max-width:1100px) {
+.content {padding:27px}
+}
+@media(max-width:720px) {
+.mobile-nav {display:flex;gap:7px;overflow-x:auto;padding:13px;background:#091523;border-bottom:1px solid var(--line)}
+.mobile-nav button {white-space:nowrap;background:#15273a;color:#a3b6c8;padding:9px 12px;border-radius:6px}
+.content {padding:22px 14px}
+.pagehead {align-items:flex-start;flex-direction:column}
+.pagehead h1 {font-size:25px}
+.loginbrand {min-height:280px;padding:30px}
+.loginbrand .heroover {margin-top:25px}
+.loginbrand h1 {font-size:33px}
+.loginbrand .orbit {width:170px;height:170px;bottom:-70px;right:-25px}
+.loginform {padding:40px 25px}
+.featureline {margin-top:22px;gap:12px}
+.docsbody {grid-template-columns:1fr;gap:0;padding:25px}
+.docstoc {position:static;display:flex;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}
+}
+:root { --cyan: #57e1d0; }
+.aegis-dot, .workspace-glyph { color: var(--cyan); }
+
+/* Sign-in artboard and server-backed account forms. */
+.aegis-login {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  min-height: 100dvh;
+  background: #0a1420;
+}
+.aegis-login .loginbrand { padding-bottom: 78px; }
+.aegis-login .loginbrand .logo { position: relative; z-index: 1; }
+.loginbrand .heroover, .loginbrand h1, .loginbrand p, .loginbrand .featureline { position: relative; z-index: 1; }
+.featureline span::before { content: "◆"; }
+.orbit { pointer-events: none; }
+.loginform { position: relative; min-width: 0; padding-bottom: 75px; }
+.authbox .auth__form { gap: 15px; }
+.authbox .auth__form label { margin: 0 0 8px; }
+.authbox .auth__form p, .authbox .auth__alert { margin-bottom: 0; }
+.authbox .auth__switch { margin: 18px 0 0; }
+.authbox .password-strength { margin-top: 0; }
+.authbox .auth__submit { margin: 5px 0 0; }
+.aegis-login .auth__trust { bottom: 23px; }
+@media (max-width: 720px) {
+  .aegis-login { grid-template-columns: 1fr; }
+  .aegis-login .loginbrand { min-height: 0; padding: 30px 24px 65px; }
+  .aegis-login .loginbrand h1 { font-size: clamp(30px, 7vw, 40px); }
+  .aegis-login .loginbrand p { font-size: 13px; }
+  .aegis-login .loginform { padding: 36px 24px 65px; }
+}
+
+/* Console artboard. The sidebar, heading, status strip and five cards are distinct layout regions. */
+.aegis-console .sidebar { display: flex; flex-direction: column; background: #0a1320; }
+.aegis-console .sidebar .logo_items {
+  height: auto;
+  flex: none;
+  padding: 12px;
+  border: 1px solid #304256;
+}
+.aegis-console .workspace-trigger {
+  min-height: 25px;
+  height: auto;
+  gap: 8px;
+  margin-top: 5px;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+.aegis-console .workspace-menu { top: 100%; left: 0; width: 100%; min-width: 170px; }
+.aegis-console .logo_tag { color: var(--ink); font-size: 12px; }
+.aegis-console .menu_container { flex: 1; height: auto; }
+.aegis-console .nav-section { padding-inline: 12px; }
+.aegis-console .sidebar__actions .link { min-height: 38px; }
+.aegis-console .sidebar.close .console-brand { padding-inline: 14px; }
+.aegis-console .sidebar.close .console-brand .brand,
+.aegis-console .sidebar.close .workspace > .eyebrow,
+.aegis-console .sidebar.close .sidebar-note { display: none; }
+.aegis-console .topbar { height: 74px; }
+.aegis-console .content { padding-top: 34px; }
+.aegis-console .page-heading { min-height: 0; margin-bottom: 13px; padding-bottom: 14px; }
+.aegis-console .page-heading h1 { margin: 0; }
+.aegis-console .console-footer { padding-top: 23px; }
+.operation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 22px;
+  border: 1px solid #294254;
+  border-radius: 10px;
+  background: linear-gradient(110deg, #102b35, #101c2c);
+}
+.operation-context p { margin: 9px 0 0; }
+.operation-context p span { margin-left: 14px; color: var(--muted); }
+.operation-metrics { display: flex; gap: 20px; align-items: center; }
+.operation-metrics > div { border-left: 1px solid #2d4a55; padding-left: 17px; }
+.operation-metrics strong { display: block; font-size: 17px; color: var(--ink); }
+.operation-metrics small { display: block; color: var(--muted); white-space: nowrap; }
+.operation #viewPolicy { padding: 9px 11px; border-radius: 7px; background: var(--raised); border: 1px solid var(--line); white-space: nowrap; }
+.aegis-console .kpi-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); }
+.aegis-console .kpi-grid > * { min-height: 150px; }
+.aegis-console .kpi-grid .metric-icon, .aegis-console .kpi-grid .secondary-icon { float: right; }
+.aegis-console .kpi-grid .secondary-label { display: flex; flex-direction: row-reverse; justify-content: space-between; }
+.aegis-console .chart-panel .trend-legend { position: static; margin: 0 21px 12px; }
+.aegis-console .chart-panel .chart-wrap { order: 1; }
+.aegis-console .dashboard-grid { grid-template-columns: minmax(0,1.8fr) minmax(285px,1fr); }
+.aegis-console .chart-panel { min-height: 316px; }
+.aegis-console .auth-feed { height: auto; min-height: 114px; max-height: 250px; }
+.aegis-console .tab-panel:not(#tab-overview) > .panel {
+  background: transparent;
+  border-color: transparent;
+}
+.aegis-console .tab-panel:not(#tab-overview) > .panel > .panel__head { padding-inline: 0; margin-inline: 0; border: 0; }
+.aegis-console .tab-panel:not(#tab-overview) .table-shell { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.aegis-console .tab-panel:not(#tab-overview) .pager { background: var(--surface); border-radius: 0 0 8px 8px; }
+.aegis-console .mobile-nav { display: none; }
+@media (max-width: 1100px) {
+  .aegis-console .kpi-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .aegis-console .dashboard-grid { grid-template-columns: 1fr; }
+}
+@media (min-width: 701px) and (max-width: 1000px) {
+  .aegis-console .sidebar:not(.hoverable) .brand,
+  .aegis-console .sidebar:not(.hoverable) .workspace > .eyebrow,
+  .aegis-console .sidebar:not(.hoverable) .sidebar-note { display: none; }
+  .aegis-console .sidebar:not(.hoverable) .console-brand { padding-inline: 22px; }
+}
+@media (max-width: 720px) {
+  .aegis-console .topbar { height: 58px; }
+  .aegis-console .content { padding: 22px 14px 28px; }
+  .aegis-console .mobile-nav { display: flex; }
+  .aegis-console .mobile-nav button[aria-current="page"] { background: var(--soft); color: var(--cyan); }
+  .aegis-console .kpi-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .aegis-console .kpi-grid > * { min-height: 125px; }
+  .aegis-console .page-heading { align-items: flex-start; }
+  .operation { flex-direction: column; align-items: stretch; padding: 14px; }
+  .operation-metrics { gap: 10px; justify-content: space-between; }
+  .operation-metrics > div { padding-left: 8px; }
+  .mobile-nav-open .aegis-console .sidebar { display: flex; }
+}
+
+/* Reference documentation artboard with the full developer content inline. */
+.docs-page .docsbar { padding: 0 6%; }
+.docs-page .docsbody {
+  grid-template-columns: 200px minmax(0,800px);
+  gap: 54px;
+  max-width: 1220px;
+  padding: 48px 35px;
+}
+.docs-page .docstoc { background: transparent; min-width: 0; padding: 10px; }
+.docs-page .docs-main { padding: 0; }
+.docs-page .docs-breadcrumb { display: none; }
+.docs-page .docs-hero, .docs-page .docs-card, .docs-page .flow-stage {
+  border: 0;
+  border-bottom: 1px solid #284055;
+  border-radius: 0;
+  background: transparent;
+  padding: 16px 0 28px;
+  margin: 0 0 24px;
+}
+.docs-page .docs-hero h1 { font-size: clamp(29px, 4vw, 38px); }
+.docs-page .flow-stage .flow-art[hidden] { display: none; }
+.docs-page .flow-visual { display: block; padding: 0; }
+.docs-page .flow-steps { gap: 10px; }
+.docs-page .flow-step::before, .docs-page .flow-step::after { display: none; }
+.docs-page .flow-step__node { padding: 14px 6px; background: #102837; border: 1px solid #2b5360; text-align: center; }
+.docs-page .flow-step__node > small { display: none; }
+.docs-page .flow-step.is-active .flow-step__node { border-color: var(--cyan); }
+.docs-page .flow-caption { flex-direction: column; gap: 7px; }
+.docs-page .flow-play { display: flex; align-items: center; margin: 12px 0; gap: 12px; }
+.docs-page .flow-detail { padding: 0; text-align: left; }
+.docs-page .docs-main > .docs-reference { position: static; display: block; margin: 0 0 26px; max-height: none; }
+.docs-page .local-toc { display: none; }
+@media (max-width: 800px) {
+  .docs-page .docsbody { display: block; padding: 22px 16px; }
+  .docs-page .docstoc { background: #0a1420; }
+  .docs-page .docsbar { padding: 0 16px; }
+}
+.loginbrand h1, .authbox h2 { color: var(--ink); }
+.loginbrand > :last-child { z-index: 2; }
+.toolbar-connection { color: var(--muted); white-space: nowrap; font-size: 11px; }
+.toolbar-connection::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 7px; border-radius: 50%; background: var(--muted); }
+.toolbar-connection[data-state="online"]::before { background: var(--cyan); box-shadow: 0 0 8px #57e1d070; }
+.docs-page .endpoint-section > .docs-reference { position: static; display: block; margin: 20px 0 0; max-height: none; padding: 0; }
+.docs-page .docstoc a { min-height: 35px; }
+@media (max-width: 720px) {
+  .toolbar-connection { font-size: 10px; }
+  .aegis-console .topbar__right { gap: 8px; }
+}
+.aegis-login .loginbrand .heroover { margin-top: 11vh; }
+.authbox .auth-access-note, .docs-page .docs-summary {
+  margin: 12px 0 0;
+  padding: 10px 13px;
+  border: 1px solid #36566c;
+  border-radius: 6px;
+  background: #122637;
+  color: #a4bfd0;
+  font-size: 11px;
+}
+.docs-page .docs-format { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.docs-page .docs-format span { padding: 4px 8px; background: var(--raised); border: 1px solid var(--line); border-radius: 4px; color: var(--muted); font-size: 10px; }
+.docs-page .docs-format span:first-child { background: var(--green-bg); color: var(--green); }
+.docs-page .docs-toc .nav-group, .docs-page .docs-toc .download-card { display: none; }
+.docs-page .docs-toc nav { counter-reset: section; }
+.docs-page .docs-toc nav a { counter-increment: section; }
+.docs-page .docs-toc nav a::after { content: counter(section, decimal-leading-zero); order: -1; color: var(--muted); font: 10px var(--mono); }
+.docs-page .docs-toc nav a .icon, .docs-page .docs-toc nav a .method-mini { display: none; }
+.docs-page .docs-card, .docs-page .docs-hero, .docs-page .flow-stage { padding-bottom: 37px; margin-bottom: 32px; }
+.aegis-console .aegis-main .tab-panel { flex-grow: 0; }
+.aegis-console .tab-panel:not(#tab-overview) .list-heading { min-height: 30px; height: 30px; margin: 0 12px; }
+@media (max-width: 720px) {
+  .aegis-login .loginbrand .heroover { margin-top: 25px; }
+}

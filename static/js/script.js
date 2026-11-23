@@ -197,7 +197,13 @@
 
   // ── Tab 切换 ──
   let activeTab = 'overview';
-  const tabLinks = document.querySelectorAll('[data-tab]');
+  const tabLinks = [...document.querySelectorAll('[data-tab]')];
+  const mobileTabs = [...document.querySelectorAll('[data-mobile-tab]')];
+  for (const button of mobileTabs) {
+    button.addEventListener('click', () => {
+      tabLinks.find(link => link.dataset.tab === button.dataset.mobileTab)?.click();
+    });
+  }
   const tabMeta = {
     overview: { title: '数据概览', desc: '集中查看设备授权状态与接入记录' },
     records: { title: '授权记录', desc: '查看授权成功的终端硬件信息，追溯每一次设备接入' },
@@ -213,6 +219,11 @@
     if (titleEl) titleEl.textContent = meta.title;
     if (descEl) descEl.textContent = meta.desc;
     document.getElementById('breadcrumbTitle').textContent = meta.title;
+    document.getElementById('pageIndex').textContent = String(Object.keys(tabMeta).indexOf(tab) + 1).padStart(2, '0');
+    for (const button of mobileTabs) {
+      if (button.dataset.mobileTab === tab) button.setAttribute('aria-current', 'page');
+      else button.removeAttribute('aria-current');
+    }
     document.querySelectorAll('[data-page-action]').forEach(el => el.classList.toggle('hidden', el.dataset.pageAction !== tab));
   }
 
@@ -543,6 +554,9 @@
     if (!el) return;
     el.dataset.state = state;
     el.textContent = text;
+    const indicator = document.getElementById('toolbarConnection');
+    indicator.dataset.state = state;
+    indicator.textContent = text;
   }
 
   function bumpKpisFromAuth(item) {

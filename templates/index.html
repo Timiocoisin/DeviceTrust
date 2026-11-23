@@ -1,8 +1,7 @@
-<!DOCTYPE html><html lang="zh-CN" data-type="software" data-page="auth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>设备授权管理平台 · 登录</title><link rel="icon" type="image/svg+xml" href="/static/assets/aegis-mark.svg"><link rel="stylesheet" href="/static/css/v3-common.css"><link rel="stylesheet" href="/static/css/v3-auth.css?v=ui-3.7"><meta name="page-type" content="software"><meta name="site-kind" content="software"><link rel="stylesheet" href="/static/css/authorization-theme.css?v=aegis-1"></head><body><a class="skip-link" href="#main">跳至主要内容</a><main class="auth" id="main" tabindex="-1"><section class="auth__brand" data-enter aria-label="设备授权管理平台介绍"><div class="auth__mark"><img src="/static/assets/aegis-mark.svg" alt=""><span class="auth__brand-name">AEGIS<small>DEVICE AUTHORIZATION PLATFORM</small></span></div><div class="auth__intro"><h1>让每一台设备，<br><span>都值得信任。</span></h1><p>面向工业设备的可信身份验证与授权管理。通过设备指纹、CPU 白名单和多租户策略，将准入控制落实到每一次请求。</p></div><div class="auth__orbit" aria-hidden="true"></div><div class="auth__features"><div><strong>身份核验</strong><span>CPU 与硬件指纹</span></div><div><strong>准入控制</strong><span>白名单与设备状态</span></div><div><strong>授权审计</strong><span>成功与失败记录</span></div></div><p class="auth__brand-footer">设备授权管理平台 · <a href="/docs">接口文档</a></p>
-  </section><section class="auth__panel"><div class="auth__card">        <div class="auth__stack" id="loginAccessRegister" data-mode="login">
+<!DOCTYPE html><html lang="zh-CN" data-type="software" data-page="auth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>设备授权管理平台 · 登录</title><link rel="icon" type="image/svg+xml" href="/static/assets/aegis-mark.svg"><link rel="stylesheet" href="/static/css/v3-common.css"><link rel="stylesheet" href="/static/css/v3-auth.css?v=ui-3.7"><meta name="page-type" content="software"><meta name="site-kind" content="software"><link rel="stylesheet" href="/static/css/authorization-theme.css?v=aegis-1"><link rel="stylesheet" href="/static/css/aegis-layout.css?v=2"></head><body><a class="skip-link" href="#main">跳至主要内容</a><main class="aegis-login" id="main" tabindex="-1"><section class="loginbrand"><div class="logo"><span class="mark" aria-hidden="true">⬡</span><span class="brand">AEGIS<span class="aegis-dot">.</span><small>DEVICE AUTH CLOUD</small></span></div><div class="heroover">SECURE BY DESIGN / V 01.0</div><h1>让每一台设备，<br><span style="color:var(--cyan)">都值得信任。</span></h1><p>面向企业级硬件环境的精细化授权管理。通过设备指纹、CPU 白名单和多租户隔离，构筑可靠的数字准入边界。</p><div class="featureline"><span>身份核验</span><span>准入控制</span><span>授权审计</span></div><div class="orbit" aria-hidden="true"></div><div style="position:absolute;bottom:30px;color:#668a9d;font-size:11px">ENTERPRISE GRADE AUTHORIZATION　·　<a href="/docs" style="color:#89d4d4">接口文档 ↗</a></div></section><section class="loginform"><div class="authbox"><div class="overline">SECURE ACCESS</div>        <div class="auth__stack" id="loginAccessRegister" data-mode="login">
           <div class="auth__access" data-panel="login">
             <h2 class="auth__card-title">欢迎回来</h2>
-            <p class="auth__card-sub">使用已注册邮箱访问设备授权管理平台</p>
+            <p class="auth__card-sub">使用管理员账户，访问设备授权控制中心。</p>
 
             <div class="auth__alert auth__alert--error hidden" id="loginAlert" role="alert" aria-live="polite"></div>
 
@@ -34,7 +33,7 @@
             <p class="auth__switch">
 
               <button type="button" id="loginButtonRegister">创建账户</button><button type="button" class="field__link" id="loginButtonForgot">忘记密码？</button>
-            </p>
+            </p><p class="auth-access-note">仅限授权人员使用。请使用已注册的管理员邮箱登录。</p>
           </div>
 
           <div class="auth__register" data-panel="register">

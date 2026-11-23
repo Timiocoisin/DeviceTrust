@@ -61,13 +61,8 @@
   }));
   updateExamples();
   // On smaller screens place code next to its first endpoint, rather than after the entire document.
-  const reference=document.querySelector('.docs-reference'),shell=document.querySelector('.docs-shell');
-  const compact=window.matchMedia('(max-width:1180px)');
-  function placeReference(){
-    if(compact.matches)document.querySelector('#authorize .next-endpoint').after(reference);
-    else shell.appendChild(reference);
-  }
-  placeReference();compact.addEventListener('change',placeReference);
+  const reference = document.querySelector('.docs-reference');
+  document.getElementById('authorize')?.appendChild(reference);
   document.querySelectorAll('.reference-tabs [role=tab]').forEach(el=>{el.tabIndex=el.getAttribute('aria-selected')==='true'?0:-1;});
   const stage=document.getElementById('flow'),steps=[...document.querySelectorAll('.flow-step')],dots=[...document.querySelectorAll('.flow-progress i')];
   const flowCopy=[
