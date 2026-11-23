@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/assets/hero.png" alt="DeviceTrust 设备身份与授权管理" width="100%">
+  <img src="docs/assets/aegis-cover.png" alt="DeviceTrust 设备身份与授权管理" width="100%">
   <h1>DeviceTrust</h1>
   <p><strong>面向设备身份、授权策略与接入审计的自托管控制台。</strong></p>
   <p><a href="README.md">English</a> · <a href="docs/configuration.md">配置说明</a> · <a href="docs/protocol.md">设备协议</a></p>
@@ -15,7 +15,7 @@ DeviceTrust 将设备上报的 CPU、主板、磁盘和内存信息转换为硬�
 
 从今日授权结果到七日趋势、失败原因和实时动态，将设备接入状态集中到同一工作空间。白名单、设备管理与授权审计沿用统一的操作体验。
 
-<a href="docs/assets/console.png"><img src="docs/assets/console.png" alt="真实控制台：授权指标、趋势、失败分布与实时设备动态" width="100%"></a>
+<a href="docs/assets/aegis-dashboard.png"><img src="docs/assets/aegis-dashboard.png" alt="真实控制台：授权指标、趋势、失败分布与实时设备动态" width="100%"></a>
 
 <sub>截图来自实际应用界面，全部使用合成演示数据；展示数值不代表性能测试结果。</sub>
 
@@ -23,7 +23,7 @@ DeviceTrust 将设备上报的 CPU、主板、磁盘和内存信息转换为硬�
 
 接口说明、参数约定与请求响应并排呈现。支持文档搜索、Python / cURL / JavaScript 示例切换，以及原生分层 SVG 授权过程演示。
 
-<a href="docs/assets/developer-portal.png"><img src="docs/assets/developer-portal.png" alt="真实开发者文档：接口参数、SVG 展示与请求响应示例" width="100%"></a>
+<a href="docs/assets/aegis-developer-portal.png"><img src="docs/assets/aegis-developer-portal.png" alt="真实开发者文档：接口参数、SVG 展示与请求响应示例" width="100%"></a>
 
 ### 03 / 统一的账户入口
 
@@ -32,7 +32,7 @@ DeviceTrust 将设备上报的 CPU、主板、磁盘和内存信息转换为硬�
 <details>
 <summary>展开查看登录界面</summary>
 <br>
-<img src="docs/assets/login.png" alt="DeviceTrust 登录界面" width="100%">
+<img src="docs/assets/aegis-login.png" alt="DeviceTrust 登录界面" width="100%">
 </details>
 
 更多桌面预览：[授权记录](docs/assets/aegis-records.png) · [审计日志](docs/assets/aegis-logs.png) · [CPU 白名单](docs/assets/aegis-cpu-whitelist.png) · [设备管理](docs/assets/aegis-devices.png)
