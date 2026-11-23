@@ -1097,6 +1097,32 @@ def verify_auth_code_endpoint():
 
 # ── WebSocket 实时推送 ────────────────────────────────────
 
+def load_live_feed_snapshot(tenant, limit=30):
+    """从 MySQL 读取业务线最近授权动态，供 WebSocket 首包快照。"""
+    db = get_db()
+    cursor = db.cursor()
+    try:
+        cursor.execute(
+            "SELECT * FROM auth_log WHERE tenant=%s ORDER BY id DESC LIMIT %s",
+            (tenant, limit),
+        )
+        rows = cursor.fetchall()
+    finally:
+        cursor.close()
+        db.close()
+    for row in rows:
+        format_row_datetime(row)
+        ensure_row_fingerprint(row)
+        if row.get('is_new_device') is None:
+            row['is_new_device'] = 0
+    return {
+        'type': 'snapshot',
+        'tenant': tenant,
+        'feed': rows,
+        'max_id': rows[0]['id'] if rows else 0,
+    }
+
+
 if sock:
     @sock.route('/ws/live')
     def ws_live(ws):
@@ -1132,6 +1158,12 @@ if sock:
                             'type': 'subscribed',
                             'tenant': tenant_filter,
                         }))
+                        # 订阅后立刻下发 MySQL 真实快照，避免只靠轮询才能看到历史
+                        if tenant_filter:
+                            try:
+                                ws.send(live_hub.dumps(load_live_feed_snapshot(tenant_filter)))
+                            except Exception:
+                                pass
                     elif msg.get('type') == 'ping':
                         ws.send(live_hub.dumps({'type': 'pong'}))
 

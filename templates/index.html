@@ -1,6 +1,7 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>设备授权管理平台 · 登录</title><link rel="icon" type="image/svg+xml" href="/static/assets/logo-primary.svg?v=2"><link rel="stylesheet" href="/static/css/v3-common.css"><link rel="stylesheet" href="/static/css/v3-auth.css?v=ui-3.7"></head><body><main class="auth"><section class="auth__brand" aria-label="设备授权管理平台介绍"><div class="auth__mark"><img src="/static/assets/logo-primary.svg?v=2" alt=""><span>设备授权管理平台</span></div><div class="auth__intro"><h1>统一管理设备身份，<br>规范授权与接入。</h1><p>集中管理设备准入、授权状态与访问记录。</p></div><img class="auth__art" src="/static/assets/authorization-art.svg?v=2" alt="设备授权档案：CPU 身份、硬件指纹与授权状态"><div class="auth__features"><div><strong>身份核验</strong><span>CPU 与硬件指纹</span></div><div><strong>准入控制</strong><span>白名单与设备状态</span></div><div><strong>授权审计</strong><span>成功与失败记录</span></div></div></section><section class="auth__panel"><div class="auth__card">        <div class="auth__stack" id="loginAccessRegister" data-mode="login">
+<!DOCTYPE html><html lang="zh-CN" data-type="software" data-page="auth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>设备授权管理平台 · 登录</title><link rel="icon" type="image/svg+xml" href="/static/assets/aegis-mark.svg"><link rel="stylesheet" href="/static/css/v3-common.css"><link rel="stylesheet" href="/static/css/v3-auth.css?v=ui-3.7"><meta name="page-type" content="software"><meta name="site-kind" content="software"><link rel="stylesheet" href="/static/css/authorization-theme.css?v=aegis-1"></head><body><a class="skip-link" href="#main">跳至主要内容</a><main class="auth" id="main" tabindex="-1"><section class="auth__brand" data-enter aria-label="设备授权管理平台介绍"><div class="auth__mark"><img src="/static/assets/aegis-mark.svg" alt=""><span class="auth__brand-name">AEGIS<small>DEVICE AUTHORIZATION PLATFORM</small></span></div><div class="auth__intro"><h1>让每一台设备，<br><span>都值得信任。</span></h1><p>面向工业设备的可信身份验证与授权管理。通过设备指纹、CPU 白名单和多租户策略，将准入控制落实到每一次请求。</p></div><div class="auth__orbit" aria-hidden="true"></div><div class="auth__features"><div><strong>身份核验</strong><span>CPU 与硬件指纹</span></div><div><strong>准入控制</strong><span>白名单与设备状态</span></div><div><strong>授权审计</strong><span>成功与失败记录</span></div></div><p class="auth__brand-footer">设备授权管理平台 · <a href="/docs">接口文档</a></p>
+  </section><section class="auth__panel"><div class="auth__card">        <div class="auth__stack" id="loginAccessRegister" data-mode="login">
           <div class="auth__access" data-panel="login">
-            <h2 class="auth__card-title">登录管理控制台</h2>
+            <h2 class="auth__card-title">欢迎回来</h2>
             <p class="auth__card-sub">使用已注册邮箱访问设备授权管理平台</p>
 
             <div class="auth__alert auth__alert--error hidden" id="loginAlert" role="alert" aria-live="polite"></div>
@@ -17,7 +18,7 @@
               <div class="field">
                 <div class="field__label-row">
                   <label for="password">密码</label>
-                  
+
                 </div>
                 <div class="field__control">
                   <input type="password" id="password" name="Password" required autocomplete="current-password" placeholder="请输入密码">
@@ -27,12 +28,12 @@
                 </div>
               </div>
 
-              <div class="recovery-row"><button type="button" class="field__link" id="loginButtonForgot">忘记密码？</button></div><button type="submit" class="auth__submit">登录</button>
+              <button type="submit" class="auth__submit">安全登录 →</button>
             </form>
 
             <p class="auth__switch">
-              还没有账户？
-              <button type="button" id="loginButtonRegister">创建账户</button>
+
+              <button type="button" id="loginButtonRegister">创建账户</button><button type="button" class="field__link" id="loginButtonForgot">忘记密码？</button>
             </p>
           </div>
 

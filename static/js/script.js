@@ -33,7 +33,23 @@
   sidebar?.addEventListener('mouseenter',() => {
     if (!sidebar.classList.contains('locked')) { sidebar.classList.remove('close'); syncSidebarState(); }
   });
-  if (window.innerWidth < 500) { sidebar.classList.add('close'); sidebar.classList.remove('locked'); }
+  const mobileNavToggle = document.getElementById('mobileNavToggle');
+  const mobileNavBackdrop = document.getElementById('mobileNavBackdrop');
+  function setMobileNav(open) {
+    document.body.classList.toggle('mobile-nav-open', open);
+    mobileNavToggle?.setAttribute('aria-expanded', String(open));
+    if (open) document.getElementById('workspaceTrigger')?.focus();
+    else if (mobileNavToggle && sidebar?.contains(document.activeElement)) mobileNavToggle.focus();
+  }
+  mobileNavToggle?.addEventListener('click', () => setMobileNav(true));
+  mobileNavBackdrop?.addEventListener('click', () => setMobileNav(false));
+  sidebar?.addEventListener('click', event => {
+    if (event.target.closest('[data-tab]') && document.body.classList.contains('mobile-nav-open')) setMobileNav(false);
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && document.body.classList.contains('mobile-nav-open')
+      && !document.querySelector('.modal:not(.hidden), .workspace-menu:not(.hidden)')) setMobileNav(false);
+  });
   syncSidebarState();
 
   async function renderListRequest(task, selector, columns, retry) {
@@ -78,16 +94,19 @@
   let currentTenant = localStorage.getItem(TENANT_KEY) || 'lvshui';
   if (!TENANT_META[currentTenant]) currentTenant = 'lvshui';
 
+  let tenantRevision = 0;
+
   function withTenant(url) {
     const sep = url.includes('?') ? '&' : '?';
     return `${url}${sep}tenant=${encodeURIComponent(currentTenant)}`;
   }
 
   async function api(url, opts = {}) {
-    const requestedTenant = currentTenant;
+    const requestedRevision = tenantRevision;
     const headers = new Headers(opts.headers || {});
     headers.set('X-Tenant', currentTenant);
     const res = await fetch(withTenant(url), { ...opts, headers });
+    if (requestedRevision !== tenantRevision) throw new Error('业务线已切换');
     if (res.status === 401) {
       window.location.href = '/';
       throw new Error('未登录');
@@ -95,7 +114,7 @@
     const readJson = res.json.bind(res);
     res.json = async () => {
       const data = await readJson();
-      if (requestedTenant !== currentTenant) throw new Error('业务线已切换');
+      if (requestedRevision !== tenantRevision) throw new Error('业务线已切换');
       return data;
     };
     return res;
@@ -135,8 +154,18 @@
     feedMaxId = 0;
     knownFingerprints.clear();
     V3UI.close('historyModal');
+    for (const key of Object.keys(pages)) pages[key] = 1;
+    document.querySelectorAll('.today-authorized-count, .today-failed-count, .cpu-count, .authorized-count, .today-new-devices-count, #opsSuccessRate, #failureTotal, .status-num')
+      .forEach(el => { el.textContent = '—'; });
+    document.querySelector('.unknown-devices-count').textContent = '未知设备 — 台';
+    document.getElementById('failureLegend').replaceChildren();
+    document.querySelector('#successSparkline path')?.removeAttribute('d');
+    document.querySelectorAll('.chart-tooltip').forEach(el => el.remove());
+    trendChart?.destroy();
+    failReasonChart?.destroy();
+    trendChart = failReasonChart = null;
     const feed = document.getElementById('authFeed');
-    if (feed) feed.innerHTML = '';
+    if (feed) feed.replaceChildren();
     const lastAuth = document.getElementById('opsLastAuth');
     if (lastAuth) lastAuth.textContent = '暂无';
     const updates = [refreshKpis(),
@@ -155,12 +184,13 @@
     btn.addEventListener('click', () => {
       const next = btn.dataset.tenant;
       if (!TENANT_META[next] || next === currentTenant) return;
+      tenantRevision += 1;
       currentTenant = next;
       localStorage.setItem(TENANT_KEY, currentTenant);
       syncTenantUI();
       showToast(`已切换到${TENANT_META[currentTenant].name}`);
       reloadActiveTenantData();
-      sendLiveSubscribe();
+      reconnectLiveForTenant();
     });
   });
   syncTenantUI();
@@ -278,11 +308,11 @@
   let trendChart, failReasonChart;
   let trendDays = 7;
 
-  const chartGrid = '#EAF0F7';
+  const chartGrid = '#263549';
   const chartFont = { family: "'Microsoft YaHei', sans-serif", size: 11 };
   const chartScales = {
-    x: { grid: { display: false }, ticks: { font: chartFont, maxRotation: 0, autoSkip: true, maxTicksLimit: 8 } },
-    y: { beginAtZero: true, grid: { color: chartGrid, drawBorder: false }, ticks: { maxTicksLimit: 4, font: chartFont, padding: 8 }, border: { display: false } },
+    x: { grid: { display: false }, ticks: { font: chartFont, color: '#91a4b9', maxRotation: 0, autoSkip: true, maxTicksLimit: 8 } },
+    y: { beginAtZero: true, grid: { color: chartGrid, drawBorder: false }, ticks: { maxTicksLimit: 4, color: '#91a4b9', font: chartFont, padding: 8 }, border: { display: false } },
   };
   function displayDate(value) {
     if (!value) return '—';
@@ -325,7 +355,7 @@
     card.innerHTML = `<div class="chart-tooltip__date">${esc(title)}</div><div class="chart-tooltip__rows">${(tooltip.dataPoints || []).map(point => {
       const colors = point.dataset.borderColor;
       const fills = point.dataset.backgroundColor;
-      const color = chart.config.type === 'doughnut' ? (Array.isArray(fills) ? fills[point.dataIndex] : '#4768EF') : (typeof colors === 'string' ? colors : '#4768EF');
+      const color = chart.config.type === 'doughnut' ? (Array.isArray(fills) ? fills[point.dataIndex] : '#57e1d0') : (typeof colors === 'string' ? colors : '#57e1d0');
       return `<div class="chart-tooltip__row"><span class="chart-tooltip__label"><i style="background:${esc(color)}"></i>${esc(point.dataset.label || '失败次数')}</span><span><strong>${esc(Number(point.raw).toLocaleString('en-US'))}</strong><small>次</small></span></div>`;
     }).join('')}</div>`;
     const bounds = chart.canvas.getBoundingClientRect(), box=card.getBoundingClientRect();
@@ -359,18 +389,18 @@
         datasets: [
           {
             label: '成功', data: data.success, tension: 0, fill: true,
-            borderColor: '#4768EF', borderWidth: 2.5, pointRadius: 3, pointHoverRadius: 5,
+            borderColor: '#57e1d0', borderWidth: 2.5, pointRadius: 3, pointHoverRadius: 5,
             backgroundColor: (c) => {
               const { chart } = c;
               const g = chart.ctx.createLinearGradient(0, 0, 0, chart.height);
-              g.addColorStop(0, 'rgba(71,104,239,0.18)');
-              g.addColorStop(1, 'rgba(71,104,239,0)');
+              g.addColorStop(0, 'rgba(87,225,208,0.18)');
+              g.addColorStop(1, 'rgba(87,225,208,0)');
               return g;
             },
           },
           {
             label: '失败', data: data.fail, tension: 0, fill: true,
-            borderColor: '#DF6676', borderWidth: 2.5, pointRadius: 3, pointHoverRadius: 5,
+            borderColor: '#ff8899', borderWidth: 2.5, pointRadius: 3, pointHoverRadius: 5,
             backgroundColor: (c) => {
               const { chart } = c;
               const g = chart.ctx.createLinearGradient(0, 0, 0, chart.height);
@@ -403,11 +433,16 @@
     const ctx = document.getElementById('failReasonChart');
     if (!ctx) return;
     if (failReasonChart) { document.getElementById('failReasonChart-tooltip')?.remove(); failReasonChart.destroy(); }
-    const colors = ['#4768EF','#A295E7','#F1BF86','#C7D7F6'];
-    document.getElementById('failureTotal').textContent = data.data.reduce((a,b) => a + Number(b),0);
-    document.getElementById('failureLegend').innerHTML = data.labels.map((label,i) => `<div><i style="background:${colors[i % colors.length]}"></i><span>${esc(label)}</span><strong>${esc(data.data[i])}</strong></div>`).join('');
+    const colors = ['#57e1d0', '#628cff', '#ff8899', '#f6be72'];
+    const total = data.data.reduce((sum, count) => sum + Number(count), 0);
+    document.getElementById('failureTotal').textContent = total;
+    document.getElementById('failureLegend').innerHTML = data.labels.map((label, i) => {
+      const count = Number(data.data[i]);
+      const percentage = total ? Math.round(count / total * 100) : 0;
+      return `<div><i style="background:${colors[i % colors.length]}"></i><span>${esc(label)}</span><strong title="${count} 次">${percentage}%</strong></div>`;
+    }).join('');
     failReasonChart = new Chart(ctx, {
-      type:'doughnut', data:{labels:data.labels,datasets:[{data:data.data,backgroundColor:colors,borderColor:'#fff',borderWidth:3,hoverOffset:3}]},
+      type:'doughnut', data:{labels:data.labels,datasets:[{data:data.data,backgroundColor:colors,borderColor:'#101d2d',borderWidth:3,hoverOffset:3}]},
       options:{responsive:true,maintainAspectRatio:false,cutout:'73%',animation:false,plugins:{legend:{display:false},tooltip:{enabled:false,external:renderChartTooltip}}}
     });
   }
@@ -536,6 +571,29 @@
     if (rateEl) rateEl.textContent = total === 0 ? '—' : `${((ok / total) * 100).toFixed(1)}%`;
   }
 
+  function applyAuthSnapshot(data) {
+    if (!data || (data.tenant && data.tenant !== currentTenant)) return;
+    const feed = document.getElementById('authFeed');
+    if (!feed) return;
+    const items = Array.isArray(data.feed) ? data.feed : [];
+    knownFingerprints.clear();
+    feed.innerHTML = items.map(item => {
+      if (item.device_fingerprint) knownFingerprints.add(item.device_fingerprint);
+      return feedItemHtml(item, false);
+    }).join('') || `<div class="feed-empty">${V3UI.icon('empty')}暂无授权动态</div>`;
+    feedMaxId = Number(data.max_id || items[0]?.id || 0) || 0;
+    const lastAuth = document.getElementById('opsLastAuth');
+    if (lastAuth) {
+      if (items[0]?.DateTime) {
+        lastAuth.textContent = formatRelativeTime(items[0].DateTime);
+        lastAuth.dataset.ts = items[0].DateTime;
+      } else {
+        lastAuth.textContent = '暂无';
+        delete lastAuth.dataset.ts;
+      }
+    }
+  }
+
   function applyAuthLiveItem(item) {
     if (!item) return;
     if (item.tenant && item.tenant !== currentTenant) return;
@@ -593,6 +651,15 @@
     }
   }
 
+  function reconnectLiveForTenant() {
+    const previousSocket = liveSocket;
+    liveSocket = null;
+    if (livePingTimer) clearInterval(livePingTimer);
+    livePingTimer = null;
+    previousSocket?.close();
+    connectLive();
+  }
+
   function connectLive() {
     if (liveReconnectTimer) {
       clearTimeout(liveReconnectTimer);
@@ -612,7 +679,9 @@
       liveReconnectTimer = setTimeout(connectLive, 3000);
       return;
     }
-    liveSocket.addEventListener('open', () => {
+    const socket = liveSocket;
+    socket.addEventListener('open', () => {
+      if (socket !== liveSocket) return;
       setLiveStatus('online', '实时推送');
       stopFeedFallback();
       sendLiveSubscribe();
@@ -623,15 +692,20 @@
         }
       }, 25000);
     });
-    liveSocket.addEventListener('message', (ev) => {
+    socket.addEventListener('message', (ev) => {
+      if (socket !== liveSocket) return;
       let data;
       try { data = JSON.parse(ev.data); } catch (_) { return; }
+      if (data.type === 'snapshot' && Array.isArray(data.feed)) {
+        applyAuthSnapshot(data);
+      }
       if (data.type === 'auth' && data.item) applyAuthLiveItem(data.item);
       if (data.type === 'error' && data.error === '未登录') {
         setLiveStatus('offline', '未登录');
       }
     });
-    liveSocket.addEventListener('close', () => {
+    socket.addEventListener('close', () => {
+      if (socket !== liveSocket) return;
       setLiveStatus('offline', '实时重连中…');
       if (livePingTimer) {
         clearInterval(livePingTimer);
@@ -640,9 +714,7 @@
       startFeedFallback();
       liveReconnectTimer = setTimeout(connectLive, 2000);
     });
-    liveSocket.addEventListener('error', () => {
-      try { liveSocket.close(); } catch (_) { /* ignore */ }
-    });
+    socket.addEventListener('error', () => socket.close());
   }
 
   loadAuthFeed().finally(() => connectLive());

@@ -35,6 +35,16 @@ DeviceTrust 将设备上报的 CPU、主板、磁盘和内存信息转换为硬�
 <img src="docs/assets/login.png" alt="DeviceTrust 登录界面" width="100%">
 </details>
 
+更多桌面预览：[授权记录](docs/assets/aegis-records.png) · [审计日志](docs/assets/aegis-logs.png) · [CPU 白名单](docs/assets/aegis-cpu-whitelist.png) · [设备管理](docs/assets/aegis-devices.png)
+
+### 移动端预览
+
+<p align="center">
+  <a href="docs/assets/aegis-login-mobile.png"><img src="docs/assets/aegis-login-mobile.png" width="29%" alt="移动端登录"></a>
+  <a href="docs/assets/aegis-dashboard-mobile.png"><img src="docs/assets/aegis-dashboard-mobile.png" width="29%" alt="移动端控制台"></a>
+  <a href="docs/assets/aegis-docs-mobile.png"><img src="docs/assets/aegis-docs-mobile.png" width="29%" alt="移动端文档"></a>
+</p>
+
 ## 能力
 
 | 模块 | 内容 |

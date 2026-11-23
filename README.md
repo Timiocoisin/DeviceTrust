@@ -55,6 +55,16 @@ The account experience shares the console's visual language, with dedicated sign
 <img src="docs/assets/login.png" alt="DeviceTrust sign-in interface" width="100%">
 </details>
 
+More desktop previews: [Authorization records](docs/assets/aegis-records.png) · [Audit logs](docs/assets/aegis-logs.png) · [CPU allowlist](docs/assets/aegis-cpu-whitelist.png) · [Devices](docs/assets/aegis-devices.png)
+
+### Mobile previews
+
+<p align="center">
+  <a href="docs/assets/aegis-login-mobile.png"><img src="docs/assets/aegis-login-mobile.png" width="29%" alt="Mobile sign-in"></a>
+  <a href="docs/assets/aegis-dashboard-mobile.png"><img src="docs/assets/aegis-dashboard-mobile.png" width="29%" alt="Mobile console"></a>
+  <a href="docs/assets/aegis-docs-mobile.png"><img src="docs/assets/aegis-docs-mobile.png" width="29%" alt="Mobile documentation"></a>
+</p>
+
 ## From hardware identity to operational context
 
 | Layer | Responsibility | Implementation |
