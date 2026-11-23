@@ -60,9 +60,13 @@
     e.preventDefault();tabs[next].focus();tabs[next].click();
   }));
   updateExamples();
-  // On smaller screens place code next to its first endpoint, rather than after the entire document.
   const reference = document.querySelector('.docs-reference');
-  document.getElementById('authorize')?.appendChild(reference);
+  const codeExamples = document.createElement('details');
+  codeExamples.className = 'artboard-details';
+  const codeExamplesTitle = document.createElement('summary');
+  codeExamplesTitle.textContent = '更多请求语言和响应样例';
+  codeExamples.append(codeExamplesTitle, reference);
+  document.getElementById('authorize').append(codeExamples);
   document.querySelectorAll('.reference-tabs [role=tab]').forEach(el=>{el.tabIndex=el.getAttribute('aria-selected')==='true'?0:-1;});
   const stage=document.getElementById('flow'),steps=[...document.querySelectorAll('.flow-step')],dots=[...document.querySelectorAll('.flow-progress i')];
   const flowCopy=[
@@ -91,13 +95,13 @@
   function syncNavigation(){
     scrolling=false;let id='authorize';
     for(const a of toc){const el=document.getElementById(a.hash.slice(1));if(el&&el.getBoundingClientRect().top<=130)id=el.id;}
-    if(window.scrollY<24)id='authorize';activate(id);
+    if(window.scrollY<24)id='overview';activate(id);
     const next=id==='verify'?'verify':id==='authorize'||id==='overview'||id==='flow'?'authorize':endpoint;
     if(next!==endpoint){endpoint=next;updateExamples();}
     let current=local[0]?.hash;for(const a of local){const el=document.getElementById(a.hash.slice(1));if(el?.getBoundingClientRect().top<=160)current=a.hash;}local.forEach(a=>a.classList.toggle('is-active',a.hash===current));
   }
   window.addEventListener('scroll',()=>{if(!scrolling){scrolling=true;requestAnimationFrame(syncNavigation);}},{passive:true});
-  function navigate(id){const el=document.getElementById(id);if(!el)return;window.scrollTo({top:Math.max(0,el.getBoundingClientRect().top+window.scrollY-80),behavior:motion.matches?'instant':'smooth'});if(id==='verify'||id==='authorize'){endpoint=id;updateExamples();}history.replaceState(null,'',`#${id}`);activate(id);setMenu(false);}
+  function navigate(id){const el=document.getElementById(id);if(!el)return;const detail=el.closest('details');if(detail)detail.open=true;window.scrollTo({top:Math.max(0,el.getBoundingClientRect().top+window.scrollY-80),behavior:motion.matches?'instant':'smooth'});if(id==='verify'||id==='authorize'){endpoint=id;updateExamples();}history.replaceState(null,'',`#${id}`);activate(id);setMenu(false);}
   document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{if(a.hash.length<2)return;e.preventDefault();navigate(a.hash.slice(1));}));
   const menu=document.getElementById('docsMenu'),tocPanel=document.querySelector('.docs-toc');
   function setMenu(show){tocPanel.classList.toggle('is-open',show);menu.setAttribute('aria-expanded',String(show));tocPanel.inert=window.innerWidth<=800&&!show;}
@@ -112,6 +116,7 @@
   input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();results.querySelector('a')?.click();}});
   document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();if(!search.open)openSearch();}if(e.key==='Escape'){setMenu(false);}});
   search.addEventListener('click',e=>{if(e.target===search){const r=search.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)search.close();}});
+  syncNavigation();
   if(location.hash){const id=location.hash.slice(1);if(document.getElementById(id))requestAnimationFrame(()=>navigate(id));}
 })();
 

@@ -244,3 +244,64 @@
 @media (max-width: 720px) {
   .aegis-login .loginbrand .heroover { margin-top: 25px; }
 }
+@media (min-width: 801px) {
+  .docs-page .docsbody { grid-template-columns: 230px minmax(0, 800px); gap: 60px; padding-block: 55px; }
+  .docs-page .docsbar { height: 86px; }
+  .docs-page .docs-hero { padding-top: 0; padding-bottom: 40px; margin-bottom: 36px; }
+  .docs-page .flow-stage { padding: 22px 0 40px; }
+  .docs-page .docstoc { top: 105px; }
+  .aegis-login .loginbrand { padding-top: 65px; }
+  .aegis-login .loginbrand .heroover { margin-top: 8.8vh; }
+}
+/* Developer documentation: artboard reading order, with expandable protocol details. */
+.docs-page .docs-section, .docs-page .docs-card { min-width: 0; }
+.docs-page .docs-card__head { margin-bottom: 20px; }
+.docs-page .docs-card__head h2, .docs-page .flow-stage h2 { margin: 0; font-size: 24px; line-height: 1.35; color: var(--ink); }
+.docs-page .artboard-details { margin-top: 12px; color: var(--body); }
+.docs-page .artboard-details > summary { cursor: pointer; display: inline-block; padding: 5px 0; color: var(--muted); font-size: 11px; }
+.docs-page .artboard-details > summary::before { content: "▸"; display: inline-block; margin-right: 6px; color: var(--cyan); }
+.docs-page .artboard-details[open] > summary::before { transform: rotate(90deg); }
+.docs-page .artboard-code {
+  margin: 13px 0 16px;
+  padding: 20px;
+  border: 1px solid #284157;
+  border-radius: 8px;
+  background: #06101b;
+  color: #9ae3d4;
+  font: 12px/1.8 var(--mono);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.docs-page .artboard-try-heading { margin: 16px 0; font-size: 15px; color: var(--ink); }
+.docs-page .artboard-try, .docs-page .artboard-try .try-stage { background: transparent; border: 0; }
+.docs-page .artboard-try .try-panel__head { display: none; }
+.docs-page .artboard-try .try-grid { display: block; padding: 0; }
+.docs-page .artboard-try .try-form { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px; }
+.docs-page .artboard-try .try-form label { flex: 1 1 140px; min-width: 0; }
+.docs-page .artboard-try .try-form label span { color: var(--muted); }
+.docs-page .artboard-try .try-form :is(input,textarea,select) { height: 42px; min-height: 42px; }
+.docs-page .artboard-try .try-form__actions { display: flex; margin: 0; }
+.docs-page .artboard-try [data-preview] { order: -1; background: var(--cyan); color: #062024; }
+.docs-page .artboard-try .try-stage { margin-top: 15px; }
+.docs-page .flow-step__node { min-height: 85px; justify-content: center; }
+.docs-page .flow-caption { color: #9de3d7; gap: 9px; }
+.docs-page .flow-caption b, .docs-page .flow-step.is-active .flow-caption b { background: none; color: #9de3d7; box-shadow: none; }
+.docs-page .flow-detail { margin: 7px 0 0; }
+@media (min-width: 801px) {
+  .docs-page .docs-hero h1 { margin: 63px 0 28px; }
+  .docs-page .docs-card, .docs-page .flow-stage { padding-top: 42px; padding-bottom: 40px; margin-bottom: 36px; }
+  .docs-page .docstoc { top: 141px; align-self: start; height: auto; }
+  .docs-page .docstoc a { min-height: 45px; }
+  .docs-page .docs-search-trigger { width: 34px; margin-right: 10px; }
+  .docs-page .docs-search-trigger > :not(.icon) { display: none; }
+  .docs-page .docs-top__actions > a { padding: 11px 15px; background: var(--raised); border: 1px solid #30445a; border-radius: 7px; color: var(--ink); }
+  .aegis-login .loginform { padding-bottom: 50px; }
+}
+.docs-page .artboard-try .artboard-try-output[hidden] { display: none; }
+.docs-page .docs-card .endpoint-header { min-height: 42px; }
+.docs-page .docs-card .docs-endpoint { border: 0; background: transparent; padding-inline: 0; }
+.docs-page .docs-card .endpoint-header .content-type { display: none; }
+.docs-page .flow-visual { position: relative; }
+.docs-page .flow-play { flex-wrap: wrap; margin: 8px 0 0; }
+.docs-page .flow-play > button { height: 34px; }
+.docs-page .flow-detail { padding: 0; }

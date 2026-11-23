@@ -2,37 +2,7 @@
 (function () {
   'use strict';
 
-  // Sidebar mode is a visible switch; collapsed/expanded is a separate action.
   const sidebar = document.querySelector('.sidebar');
-  const sidebarCloseBtn = document.querySelector('#sidebar-close');
-  const sidebarLockBtn = document.querySelector('#lock-icon');
-  function syncSidebarState() {
-    const fixed = sidebar.classList.contains('locked');
-    const collapsed = sidebar.classList.contains('close');
-    sidebar.classList.toggle('hoverable',!fixed);
-    sidebarLockBtn.setAttribute('aria-checked',String(fixed));
-    sidebarLockBtn.setAttribute('title',fixed ? '已固定，点击切换为悬停展开' : '悬停展开，点击固定侧栏');
-    document.getElementById('sidebarModeStatus').textContent = fixed ? '已固定 · 保持展开' : '未固定 · 悬停展开';
-    sidebarCloseBtn.setAttribute('aria-label',collapsed ? '展开侧栏' : '收起侧栏');
-    sidebarCloseBtn.setAttribute('title',collapsed ? '展开侧栏' : '收起侧栏');
-    sidebarCloseBtn.setAttribute('aria-expanded',String(!collapsed));
-  }
-  sidebarLockBtn?.addEventListener('click',() => {
-    const fixed = !sidebar.classList.contains('locked');
-    sidebar.classList.toggle('locked',fixed);
-    if (fixed) sidebar.classList.remove('close');
-    syncSidebarState();
-  });
-  sidebarCloseBtn?.addEventListener('click',() => {
-    sidebar.classList.toggle('close');
-    syncSidebarState();
-  });
-  sidebar?.addEventListener('mouseleave',() => {
-    if (!sidebar.classList.contains('locked')) { sidebar.classList.add('close'); syncSidebarState(); }
-  });
-  sidebar?.addEventListener('mouseenter',() => {
-    if (!sidebar.classList.contains('locked')) { sidebar.classList.remove('close'); syncSidebarState(); }
-  });
   const mobileNavToggle = document.getElementById('mobileNavToggle');
   const mobileNavBackdrop = document.getElementById('mobileNavBackdrop');
   function setMobileNav(open) {
@@ -50,7 +20,6 @@
     if (event.key === 'Escape' && document.body.classList.contains('mobile-nav-open')
       && !document.querySelector('.modal:not(.hidden), .workspace-menu:not(.hidden)')) setMobileNav(false);
   });
-  syncSidebarState();
 
   async function renderListRequest(task, selector, columns, retry) {
     const el = document.querySelector(selector);
@@ -143,9 +112,9 @@
       btn.setAttribute('aria-checked', active ? 'true' : 'false');
     });
     const tag = document.getElementById('tenantTag');
-    if (tag) tag.textContent = meta.tag;
+    if (tag) tag.textContent = `${meta.name} · ${meta.code}`;
     const badge = document.getElementById('opsTenantBadge');
-    if (badge) badge.textContent = meta.name + '业务线';
+    if (badge) badge.textContent = `● ${meta.name} · ${meta.code}`;
     document.title = `${meta.name} · 设备授权管理平台`;
     document.querySelectorAll('[data-current-tenant]').forEach(el => el.textContent = meta.name);
   }
@@ -205,7 +174,7 @@
     });
   }
   const tabMeta = {
-    overview: { title: '数据概览', desc: '集中查看设备授权状态与接入记录' },
+    overview: { title: '数据概览', desc: '监控设备授权状态、策略执行情况与实时安全事件' },
     records: { title: '授权记录', desc: '查看授权成功的终端硬件信息，追溯每一次设备接入' },
     authlogs: { title: '授权日志', desc: '查询全部授权请求，追踪结果与硬件变化' },
     whitelist: { title: 'CPU 白名单', desc: '管理允许接入的 CPU 身份、状态与授权有效期' },
@@ -247,10 +216,11 @@
   // ── 时钟 ──
   function updateTime() {
     const now = new Date();
+    const date = [now.getFullYear(), now.getMonth() + 1, now.getDate()].map(n => String(n).padStart(2, '0')).join(' / ');
     const t = [now.getHours(), now.getMinutes(), now.getSeconds()]
       .map(n => String(n).padStart(2, '0')).join(':');
     const el = document.querySelector('.current-time');
-    if (el) el.textContent = t;
+    if (el) el.textContent = `${date}　${t}`;
     const lastAuth = document.getElementById('opsLastAuth');
     if (lastAuth?.dataset.ts) {
       lastAuth.textContent = formatRelativeTime(lastAuth.dataset.ts);
@@ -400,7 +370,7 @@
         datasets: [
           {
             label: '成功', data: data.success, tension: 0, fill: true,
-            borderColor: '#57e1d0', borderWidth: 2.5, pointRadius: 3, pointHoverRadius: 5,
+            borderColor: '#57e1d0', borderWidth: 3, pointRadius: 0, pointHoverRadius: 5,
             backgroundColor: (c) => {
               const { chart } = c;
               const g = chart.ctx.createLinearGradient(0, 0, 0, chart.height);
@@ -411,7 +381,7 @@
           },
           {
             label: '失败', data: data.fail, tension: 0, fill: true,
-            borderColor: '#ff8899', borderWidth: 2.5, pointRadius: 3, pointHoverRadius: 5,
+            borderColor: '#ff8899', borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5,
             backgroundColor: (c) => {
               const { chart } = c;
               const g = chart.ctx.createLinearGradient(0, 0, 0, chart.height);
@@ -1107,7 +1077,7 @@
   // ── 设备管理（指纹） ──
   let deviceView = 'flat';
   const deviceStateMap = {
-    active: { label: '近期活跃', cls: 'active' },
+    active: { label: '活跃设备', cls: 'active' },
     never: { label: '从未授权', cls: 'never' },
     stale: { label: '长期未授权', cls: 'stale' },
     blocked: { label: '已封禁', cls: 'disabled' },
@@ -1116,7 +1086,8 @@
   function renderDeviceSummary(counts) {
     const summary = document.getElementById('statusSummary');
     if (!summary) return;
-    summary.innerHTML = Object.entries(counts || {}).map(([k, v]) => {
+    summary.innerHTML = ['active', 'never', 'stale', 'blocked'].map(k => {
+      const v = Number(counts?.[k] || 0).toLocaleString('en-US');
       const m = deviceStateMap[k] || { label: k, cls: k };
       return `<div class="status-card status-card--${m.cls}">${V3UI.icon(k === 'blocked' ? 'ban' : 'devices')}<span class="status-num">${v}</span><span class="status-label">${m.label}</span></div>`;
     }).join('');
@@ -1246,6 +1217,8 @@
       loadDeviceStatus();
     });
   });
+  document.getElementById('refreshDevices')?.addEventListener('click', loadDeviceStatus);
+
   document.getElementById('device-search')?.addEventListener('click', () => {
     pages.devices = 1;
     loadDeviceStatus();

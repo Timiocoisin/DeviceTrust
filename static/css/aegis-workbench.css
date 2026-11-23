@@ -1,0 +1,158 @@
+/* Workbench structure and dimensions follow the supplied AEGIS console artboards. */
+.aegis-console .content {
+  display: block;
+  min-height: auto;
+  padding-bottom: 50px;
+}
+.aegis-console .pagehead { min-height: 0; margin: 0 0 28px; padding: 0; align-items: flex-end; }
+.aegis-console .pagehead h1 { margin-bottom: 8px; }
+.aegis-console .pagehead p { margin: 0; }
+.aegis-console .sidebar .menu_items { padding-top: 0; }
+.aegis-console .sidebar .item { margin-bottom: 3px; }
+.aegis-console .sidebar .link { min-height: 43px; }
+.aegis-console .sidebar__actions { border-top: 1px solid var(--line); }
+.aegis-console .sidebar .logo_tag { white-space: nowrap; }
+.aegis-console .workbench-charts {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(280px, 1fr);
+  gap: 18px;
+}
+.workbench-chart, .workbench-feed, .workbench-table {
+  border: 1px solid #27394d;
+  border-radius: 10px;
+  background: linear-gradient(160deg, #101d2d, #0c1726);
+  min-width: 0;
+}
+.workbench-chart { padding: 22px; min-height: 316px; }
+.workbench-panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.workbench-panel-heading h2 { margin: 0; font-size: 15px; color: var(--ink); }
+.workbench-panel-heading .panel__desc { margin: 6px 0 0; }
+.workbench-chart .chart-wrap { padding: 12px 0 0; height: 209px; }
+.workbench-trend-legend { display: flex; gap: 15px; margin-top: 10px; color: var(--muted); font-size: 11px; }
+.workbench-trend-legend span::before { content: ""; display: inline-block; width: 13px; height: 2px; background: var(--cyan); margin: 0 5px 3px 0; }
+.workbench-trend-legend span:last-child::before { background: var(--red); }
+.workbench-chart .failure-layout { padding: 16px 0 10px; gap: 16px; }
+.workbench-chart .donut-wrap { width: clamp(106px, 11vw, 160px); height: clamp(106px, 11vw, 160px); }
+.workbench-chart .failure-hint { margin: 12px 0 0; padding: 0; }
+.workbench-feed { overflow: hidden; }
+.workbench-feed > .workbench-panel-heading { padding: 19px 22px; }
+.workbench-feed-copy h2 { display: inline; margin-right: 10px; }
+.workbench-feed .feed-actions .text-button { padding: 8px 12px; border: 1px solid #30445a; border-radius: 7px; background: var(--raised); white-space: nowrap; }
+.workbench-feed-scroll { overflow-x: auto; }
+.workbench-feed-scroll .auth-feed { min-height: 115px; max-height: 310px; height: auto; }
+.workbench-feed-scroll .feed-table-head, .workbench-feed-scroll .feed-item { min-width: 680px; width: 100%; grid-template-columns: 13% 19% 15% 14% 15% 24%; }
+.workbench-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 11px;
+  padding: 0 0 18px;
+}
+.workbench-filters .filter-field, .workbench-filters > input { flex: 1 1 120px; }
+.workbench-filters input, .workbench-filters select { width: 100%; height: 41px; }
+.workbench-filters .btn-sm { height: 41px; }
+.workbench-filters [id$="-search"] { background: var(--cyan); color: #062024; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.workbench-table .table-shell { border: 0; border-radius: 9px 9px 0 0; background: transparent; }
+.workbench-table .pager { border-top: 1px solid var(--line); background: transparent; min-height: 58px; padding: 12px 16px; }
+.workbench-table td, .workbench-table #cpuTable td, .workbench-table #deviceTable td { height: 51px; }
+.workbench-table #cpuTable, .workbench-table #deviceFlatWrap { margin-top: 0; }
+.workbench-view-switch { display: flex; gap: 8px; margin: 0 0 15px; }
+.workbench-view-switch .view-btn { height: 36px !important; background: var(--raised); border: 1px solid var(--line); }
+.workbench-view-switch .view-btn.is-active { background: var(--soft); color: var(--cyan); border-color: #236d73; }
+.aegis-console #tab-devices .status-card { padding: 16px 19px; gap: 9px; flex-direction: column; align-items: flex-start; }
+.aegis-console #tab-devices .status-card::before, .aegis-console #tab-devices .status-card > .icon { display: none; }
+@media (max-width: 1100px) {
+  .aegis-console .workbench-charts { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .aegis-console .pagehead { margin-bottom: 20px; align-items: flex-start; }
+  .workbench-chart, .workbench-feed > .workbench-panel-heading { padding: 15px; }
+  .workbench-feed-copy h2 { display: block; }
+  .workbench-feed-scroll .feed-table-head, .workbench-feed-scroll .feed-item { width: 680px; }
+  .workbench-filters .filter-field, .workbench-filters > input { flex-basis: 105px; }
+  .workbench-filters .btn-sm { padding-inline: 11px; }
+}
+.aegis-console #tab-devices .status-label { order: -1; color: var(--muted); }
+/* Match the 1440 px artboard's first-screen coordinates and component dimensions. */
+.aegis-console .sidebar .logo_items { min-height: 68px; }
+.aegis-console .sidebar .link { height: 46px; }
+.aegis-console .sidebar .item { margin-bottom: 5px; }
+.aegis-console .menu_items .link { margin-inline: 12px; }
+.aegis-console .sidebar__actions > .btn { min-height: 46px; }
+.aegis-console .pagehead { margin-bottom: 30px; }
+.aegis-console .pagehead p { font-size: 13px; line-height: 20px; }
+.aegis-console .refresh-tools { background: transparent; border: 0; height: 42px; gap: 10px; }
+.aegis-console #manualRefresh { background: var(--raised); border: 1px solid #30445a; border-radius: 7px; height: 42px; padding-inline: 14px; }
+.aegis-console #tab-overview:not(.hidden) { gap: 18px; }
+.aegis-console .operation { min-height: 94px; margin-bottom: 3px; }
+.aegis-console .operation #viewPolicy { height: 42px; }
+.aegis-console .operation .ops-tenant { display: inline-flex; padding: 5px 9px; border: 1px solid #286156; border-radius: 5px; background: #12352f; }
+.aegis-console .kpi-grid > * { padding: 18px 19px; }
+.aegis-console .kpi-grid :is(.metric-icon,.secondary-icon) { width: 22px; height: 22px; background: transparent; color: #8aa8b8; margin: 0; }
+.aegis-console .kpi-grid :is(.metric-icon,.secondary-icon) .icon { width: 16px; height: 16px; }
+.aegis-console .kpi-grid :is(.ops-metric__value,.ops-secondary__value) { margin-top: 15px; font: 700 30px/1.12 var(--font); }
+.aegis-console .workbench-chart { min-height: 338px; }
+.aegis-console .workbench-chart .chart-wrap { height: 215px; margin-top: 14px; }
+.aegis-console .workbench-chart .failure-layout { padding-block: 26px 12px; }
+.workbench-range { border: 1px solid #30495e; color: var(--muted); background: #203247; border-radius: 4px; font-size: 10px; padding: 3px 7px; }
+.workbench-feed > .workbench-panel-heading { min-height: 92px; }
+.workbench-feed .feed-table-head { height: 45px; }
+.workbench-feed .feed-item { min-height: 62px; }
+.workbench-feed .workbench-feed-copy .auto-refresh { font-size: 10px; }
+.workbench-filters .filter-field, .workbench-filters > input { flex-basis: 125px; }
+.workbench-filters input, .workbench-filters select { border-radius: 7px; }
+.workbench-table :is(th,td) { padding-inline: 18px; }
+.workbench-table th { height: 45px; }
+.workbench-table .pager__controls { flex: 1; }
+.workbench-table .pager__pages { margin-left: auto; }
+.workbench-table .pager__btn { width: auto; min-width: 34px; padding-inline: 9px; }
+#tab-devices .status-card--active .status-num { color: var(--cyan); }
+#tab-devices .status-card--never .status-num { color: var(--orange); }
+#tab-devices .status-card--stale .status-num { color: var(--muted); }
+#tab-devices .status-card--disabled .status-num { color: var(--red); }
+@media (min-width: 1200px) {
+  .aegis-console .content > .overline { margin-bottom: 15px; }
+  .aegis-console .pagehead { min-height: 66px; }
+}
+@media (max-width: 700px) {
+  .aegis-console .pagehead { margin-bottom: 20px; }
+  .aegis-console .operation { min-height: 0; }
+  .aegis-console .operation-context p span { margin-left: 0; display: block; }
+  .aegis-console .kpi-grid > * { padding: 12px; }
+  .aegis-console .workbench-chart { min-height: 0; }
+  .workbench-feed > .workbench-panel-heading { min-height: 0; }
+  .workbench-filters .filter-field, .workbench-filters > input { flex-basis: 105px; }
+}
+@media (min-width: 1200px) {
+  .aegis-console .content:has(#tab-overview:not(.hidden)) > .pagehead { margin-bottom: 13px; }
+  .aegis-console .workbench-chart .chart-wrap { margin-top: 6px; }
+  .aegis-console #tab-overview .workbench-charts { margin-top: 1px; }
+}
+#tab-whitelist .workbench-filters, #tab-devices .workbench-filters { padding-inline: 20px; }
+.aegis-console #tab-devices .status-card { height: 102px; padding: 20px; }
+@media (min-width: 701px) {
+  .aegis-console .content > .tab-panel:not(#tab-overview) { padding-top: 15px; }
+}
+@media (max-width: 700px) {
+  .aegis-console .pagehead { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; margin-bottom: 30px; }
+  .aegis-console #tab-devices .status-summary { gap: 14px; margin-bottom: 38px; }
+  #tab-devices .workbench-filters { flex-wrap: nowrap; padding-bottom: 36px; }
+  #tab-devices .workbench-filters > input { min-width: 0; }
+  #tab-devices .workbench-filters > .btn-sm { flex-shrink: 0; }
+  #tab-devices .workbench-table td { height: 62px; }
+}
+.workbench-table .pager__nav { gap: 6px; }
+.workbench-table .pager__btn { height: 34px; font-weight: 600; }
+.workbench-table .pager__pages { border: 1px solid var(--line); background: var(--raised); padding: 4px 7px; border-radius: 5px; }
+@media (max-width: 700px) {
+  .workbench-table .pager { display: flex; flex-direction: row; align-items: start; flex-wrap: wrap; gap: 8px; }
+  .workbench-table .pager__controls { flex: 1 1 215px; justify-content: space-between; }
+  .workbench-table .pager__pages { margin-left: 0; }
+  .aegis-console #tab-devices .workbench-view-switch .view-btn { height: 41px !important; }
+}

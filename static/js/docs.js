@@ -125,6 +125,16 @@
   }
 
   const authorizeForm = document.getElementById('authorizeForm');
+  authorizeForm?.addEventListener('click', event => {
+    if (event.target.closest('[data-preview], [type="submit"]')) {
+      const output = authorizeForm.closest('.try-panel')?.querySelector('.artboard-try-output');
+      if (output) output.hidden = false;
+    }
+  });
+  authorizeForm?.addEventListener('submit', () => {
+    const output = authorizeForm.closest('.try-panel')?.querySelector('.artboard-try-output');
+    if (output) output.hidden = false;
+  });
   const authorizeReq = document.getElementById('authorizeReqPreview');
   const authorizeRes = document.getElementById('authorizeResPreview');
   const authorizeResLabel = document.getElementById('authorizeResLabel');
@@ -170,6 +180,16 @@
   });
 
   const verifyForm = document.getElementById('verifyForm');
+  verifyForm?.addEventListener('click', event => {
+    if (event.target.closest('[data-preview], [type="submit"]')) {
+      const output = verifyForm.closest('.try-panel')?.querySelector('.artboard-try-output');
+      if (output) output.hidden = false;
+    }
+  });
+  verifyForm?.addEventListener('submit', () => {
+    const output = verifyForm.closest('.try-panel')?.querySelector('.artboard-try-output');
+    if (output) output.hidden = false;
+  });
   const verifyReq = document.getElementById('verifyReqPreview');
   const verifyRes = document.getElementById('verifyResPreview');
   const verifyResLabel = document.getElementById('verifyResLabel');

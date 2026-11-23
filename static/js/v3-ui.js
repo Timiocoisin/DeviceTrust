@@ -76,7 +76,7 @@ window.V3UI = (() => {
     document.querySelectorAll(`[id^="${prefix}-"]`).forEach(el => { if (el.matches('input,select')) el.value = ''; });
     document.getElementById(`${prefix}-search`).click();
   }));
-  document.querySelectorAll('.toolbar input').forEach(input => input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); input.closest('.toolbar')?.querySelector('[id$="-search"]')?.click(); } }));
+  document.querySelectorAll('.workbench-filters input').forEach(input => input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); input.closest('.workbench-filters')?.querySelector('[id$="-search"]')?.click(); } }));
   const upload = document.getElementById('uploadZone');
   upload?.addEventListener('dragover', e => { e.preventDefault(); upload.classList.add('is-dragging'); });
   upload?.addEventListener('dragleave', () => upload.classList.remove('is-dragging'));
